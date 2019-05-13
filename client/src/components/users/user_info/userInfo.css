@@ -1,0 +1,13 @@
+#user-info-box{
+    box-sizing: border-box;
+    padding: 2.1%;
+    border: 0.05em solid #eee;
+}
+
+#user-info-hdr{
+    color: #3399ff;
+}
+
+.info{
+    color: #3399ff;
+}

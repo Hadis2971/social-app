@@ -1,0 +1,15 @@
+#login-form{
+    width: 50%;
+    margin: 3.5% auto;
+    box-sizing: border-box;
+    border: 0.07em solid #3399ff;
+    padding: 3%;
+}
+
+.header{
+    color: #3399ff;
+}
+
+.error-msg{
+    color: red;
+}

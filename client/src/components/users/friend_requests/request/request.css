@@ -1,0 +1,23 @@
+.request-box{
+    width: 40%;
+    height: auto;
+    display: inline-block;
+    box-sizing: border-box;
+    border: 0.05em solid #eee;
+    padding: 1%;
+    margin: 1.5%;
+}
+
+.btn-box{
+    display: flex;
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 700px){
+    .request-box{
+        width: 80%;
+        display: block;
+        padding: 5%;
+        margin: 2% auto;
+    }
+}

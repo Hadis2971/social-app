@@ -1,0 +1,7 @@
+#friend-requests-box{
+    box-sizing: border-box;
+    border: 0.05em solid #eee;
+    padding: 1.5%;
+    height: 50em;
+    overflow: auto;
+}

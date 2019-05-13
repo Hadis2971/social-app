@@ -1,0 +1,91 @@
+.post-comment-section{
+    width: 90%;
+    box-sizing: border-box;
+    border: 0.07em solid #eee;
+    padding: 2.1%;
+    box-shadow: 0.07em 0.08em 0.1em #ccc;
+    margin: 3% auto;
+}
+
+.post-box{
+    position: relative;
+    box-sizing: border-box;
+    padding: 5%;
+    margin: 1% auto;
+    background-color: #f2f2f2;
+    color: #3399ff;
+}
+
+.img-post-box{
+    display: table;
+}
+
+.img-box{
+    width: 20%;
+    vertical-align: middle;
+    display: table-cell;
+    padding-right: 2.1%;
+}
+
+.postText{
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.post-img{
+    max-width: 100%;
+    display: inline-block;
+}
+
+.user-information{
+    position: absolute;
+    bottom: 0.3em;
+    left: 0.3em;
+}
+
+.icon-up{
+    position: absolute;
+    display: flex;
+    justify-content: space-evenly;
+    width: 15%;
+    bottom: 0.3em;
+    right: 5.5em;
+    font-size: 1.3em;
+    transform: rotateY(180deg);
+    color: #3399ff;
+    cursor: pointer;
+}
+
+.count-likes{
+    transform: rotateY(180deg);
+}
+
+.like-btn{
+    cursor: pointer;
+}
+
+.icon-down{
+    position: absolute;
+    display: flex;
+    justify-content: space-evenly;
+    width: 15%;
+    bottom: 0.3em;
+    right: 0.5em;
+    font-size: 1.3em;
+    transform: rotateY(180deg);
+    color: #ff4d4d;
+    cursor: pointer;
+}
+
+.count-dislikes{
+    transform: rotateY(180deg);
+}
+
+.dislike-btn{
+    cursor: pointer;
+}
+
+.show-comments{
+    color: #3399ff;
+    cursor: pointer;
+}

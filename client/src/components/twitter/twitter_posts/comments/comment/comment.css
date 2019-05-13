@@ -1,0 +1,26 @@
+.comment-box{
+    width: 90%;
+    margin: 3.5% auto;
+    border-bottom: 0.1em solid #3399ff;
+}
+
+.img-comment-box{
+    display: table;
+}
+
+.comment-img{
+    width: 3em;
+    height: 3em;
+    vertical-align: middle;
+    display: table-cell;
+    padding-right: 1em;
+}
+
+.comment-text{
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.info-section{
+   
+}

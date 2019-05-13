@@ -1,0 +1,11 @@
+#twitter-box{
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    padding: 2.1%;
+}
+
+#posts-hdr{
+    color: #3399ff;
+    padding: 0%;
+}
