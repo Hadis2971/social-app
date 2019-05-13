@@ -7,6 +7,7 @@ import dbConnection from './database';
 import { port } from './config';
 
 import authRouter from './components/auth/routes';
+import resetPasswordRouter from './components/auth/routes/resetPassword';
 import usersRouter from './components/users/routes/usersRoutes';
 import usersProfileRouter from './components/users/routes/profileRoutes';
 import usersFriendsRouter from './components/users/routes/friendsRoutes';
@@ -46,6 +47,7 @@ dbConnection.authenticate()
 app.use(passport.initialize());
 (passportConfig(passport));
 
+app.use('/auth/forgotPassword', resetPasswordRouter);
 app.use('/auth', authRouter);
 app.use('/users/profile', usersProfileRouter);
 app.use('/users/friends', usersFriendsRouter);
