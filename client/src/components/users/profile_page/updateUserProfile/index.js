@@ -7,6 +7,8 @@ import UserMsg from '../../../common/userMsg';
 
 import { createUpdateObject, createFormData } from '../../../../helpers';
 
+import './updateUserProfile.css';
+
 class UpdateUserInfo extends Component {
 
     constructor (props) {
@@ -33,10 +35,11 @@ class UpdateUserInfo extends Component {
         onSubmit={this.submitUpdateInfoForm}
         render={(props) => {
           return (
+            <div id='update-info-box'>
             <Picture src={src}>
             {(!fetchingSuccess) && <Errors errors='Failed To Load Profile Picture!!!' />}
             <Form className='mt-3' encType='multipart/form-data'>
-              <h1 className='text-center display-3' style={{ color: '#3399ff' }}>Update Your Profile Information</h1>
+              <h1 className='text-center' style={{ color: '#3399ff' }}>Update Your Profile Information</h1>
               <div className='form-group'>
                 <Field
                   type='text'
@@ -78,6 +81,7 @@ class UpdateUserInfo extends Component {
                 btnText='Submit' />
             </Form>
             </Picture>
+            </div>
           );
         }}
       />

@@ -1,5 +1,5 @@
 import jwtDecode from 'jwt-decode';
-
+import axios from 'axios';
 export const decodeAuthToken = async (token) => {
   try {
     const decodedInfo = await jwtDecode(token);
@@ -71,6 +71,27 @@ export const updateLikesDislikes = (like, dislike, values) => {
   dislike.textContent = dislikeNum;
 };
 
-export const handelTokenRefresh = (newToken) => {
+export const getAxiosRequest = (axiosInstance) => {
+  axiosInstance.interceptors.request.use((request) => {
+    console.log('inside axios interceptor request', request);
+    return request;
+  }, (error) => {
+    return Promise.reject(error);
+  });
+};
+
+export const handelTokenRefresh = (newToken, response) => {
   localStorage.setItem('token', newToken);
+  const token = localStorage.getItem('token');
+  const headers = {
+    'Authorization': token,
+    'refreshtoken': response.config.headers.refreshtoken
+  };
+  return axios({
+    url: response.config.url,
+    method: response.config.method,
+    data: response.config.data,
+    baseURL: response.config.baseURL,
+    headers: headers
+  });
 };

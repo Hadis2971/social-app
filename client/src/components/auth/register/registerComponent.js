@@ -15,9 +15,12 @@ class RegisterComponent extends Component {
     submitRegisterForm = async (user) => {
         const { registerUser, loginUser } = this.props.actions;
         const { history } = this.props;
-        await registerUser(user);
-        await loginUser({email: user.email, password: user.password});
-        history.push('/');
+        const registerUserResult = await registerUser(user);
+        console.log(registerUserResult);
+        if (registerUserResult && !registerUserResult.data.Error) {
+            await loginUser({email: user.email, password: user.password});
+            history.push('/');
+        }
     };
 
     render () {

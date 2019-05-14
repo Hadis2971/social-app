@@ -4,9 +4,8 @@ import { handelTokenRefresh } from '../../helpers';
 const axiosInstance = axios.create();
 
 axiosInstance.interceptors.response.use((response) => {
-  console.log('inside response interceptor', response);
   if (response.data.newToken) {
-    handelTokenRefresh(response.data.newToken);
+    return handelTokenRefresh(response.data.newToken, response);
   }
   return response;
 });

@@ -1,34 +1,68 @@
 import jwt from 'jsonwebtoken';
-import randToken from 'rand-token';
+import refreshTokenHelpers from './refrehTokenHelpers';
 import { secretOrKey, secretOrKeyRefreshToken } from '../config';
-let refreshTokens = {};
 
-export const createAuthToken = async (user) => {
+export const createAuthToken = async (user, next) => {
   const token = await jwt.sign(user, secretOrKey, { expiresIn: 3600 });
-  const refreshToken = await jwt.sign(user, secretOrKeyRefreshToken, { expiresIn: 8660 });
-  const response = {
-    token,
-    refreshToken
-  };
-  refreshTokens[refreshToken] = user.username;
-  console.log('inside crate auth token refershtoken', refreshTokens);
-  return response;
+  const refreshToken = await refreshTokenHelpers.findRefreshToken(user.userID);
+  if (refreshToken) {
+    const refreshTokenIsValid = await refreshTokenHelpers.checkIfRefreshTokenIsValid(refreshToken);
+    if (refreshTokenIsValid) {
+      return {
+        token,
+        refreshToken: refreshToken.refreshToken
+      };
+    } else {
+      const updateRefreshTokenResult = await refreshTokenHelpers.updateRefreshToken(refreshToken, user.userID);
+      const newRefreshToken = await refreshTokenHelpers.findRefreshToken(user.userID);
+      if (updateRefreshTokenResult) {
+        return {
+          token,
+          refreshToken: newRefreshToken
+        };
+      } else return false;
+    }
+  } else {
+    const brandNewRefreshToken = await jwt.sign({}, secretOrKeyRefreshToken);
+    const createRefreshTokenResult = await refreshTokenHelpers.createRefreshToken(user.userID, brandNewRefreshToken, next);
+    if (createRefreshTokenResult) {
+      return {
+        token,
+        refreshToken: brandNewRefreshToken
+      };
+    } else return false;
+  }
 };
 
 export const verifyToken = (req, res, next) => {
   let token = req.headers['x-access-token'] || req.headers['authorization'];
-  if (token.startsWith('Bearer ')) {
-    token = token.slice(7, token.length);
+  if (token) {
+    if (token.startsWith('Bearer ')) {
+      token = token.slice(7, token.length);
+    }
   }
 
   if (token) {
     jwt.verify(token, secretOrKey, async (err, decoded) => {
       if (err) {
-        if (req.headers['refreshtoken'] && req.headers['refreshtoken'] in refreshTokens) {
-          const user = await jwt.decode(token);
-          const newSecretOrKey = randToken.generate(16);
-          const newToken = await jwt.sign(user, newSecretOrKey);
-          res.json({ newToken });
+        if (req.headers['refreshtoken']) {
+          jwt.verify(token, req.headers['refreshtoken'], async (err, decoded) => {
+            if (err) {
+              console.log('vrify token req', req);
+              const payload = await jwt.decode(token);
+              const newPayload = refreshTokenHelpers.createPayloadForNewToken(payload);
+              const refreshToken = await refreshTokenHelpers.findRefreshToken(payload.userID);
+              if (refreshToken && (refreshToken.refreshToken === req.headers['refreshtoken'])) {
+                const newToken = await jwt.sign(newPayload, req.headers['refreshtoken'], { expiresIn: 3600 });
+                return res.json({
+                  newToken
+                });
+              }
+            } else {
+              req.decoded = decoded;
+              next();
+            }
+          });
         }
       } else {
         req.decoded = decoded;

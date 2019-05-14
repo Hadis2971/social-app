@@ -16,4 +16,5 @@ export const registerUser = (user) => async (dispatch) => {
       registerSuccess: true
     });
   }
+  return registerResult;
 };

@@ -90,11 +90,15 @@ class ResetPassword {
     console.log('inside reset passowrod req.body', req.body);
     const { userID, newPassword } = req.body;
     const hash = await hashUserPassword(newPassword, next);
-    const updateResult = Users.update(
+    const updateResult = await Users.update(
       { password: hash },
       { where: { id: userID } }
     );
-    console.log('inside reset users password update result', updateResult);
+    if (updateResult.length > 0) {
+      res.render('resetPasswordStatus', { success: true });
+    } else {
+      res.render('resetPasswordStatus', { success: false });
+    }
   }
 }
 

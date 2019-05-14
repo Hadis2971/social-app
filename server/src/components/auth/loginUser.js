@@ -1,9 +1,7 @@
 import passport from 'passport';
 import { createAuthToken } from '../../helpers/authToken';
-
 export const loginUser = (req, res, next) => {
   passport.authenticate('local', { session: false }, (err, user, info) => {
-    next(err);
     if (err || !user) {
       return res.json({ Error: 'Wrong Credentials' });
     }
@@ -20,9 +18,12 @@ export const loginUser = (req, res, next) => {
         userID: user.id,
         userEmail: user.email,
         profileImage: user.profileImage
-      });
-
-      res.json(tokens);
+      }, next);
+      if (tokens) {
+        return res.json(tokens);
+      } else {
+        return res.json({ Error: 'Something Went Wrong Please Try Again' });
+      }
     });
   })(req, res);
 };
