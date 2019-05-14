@@ -13,6 +13,7 @@ export const dbConfig = {
 
 export const secretOrKey = process.env.AUTH_SECRET;
 export const secretOrKeyRefreshToken = process.env.REFRESH_AUTH_SECRET;
+export const secretForResetPassword = process.env.RESER_PASSWORD_SECRET;
 
 export const emailService = process.env.EMAIL_SERVICE_PROVIDER;
 export const serverEmail = process.env.SERVER_EMAIL;

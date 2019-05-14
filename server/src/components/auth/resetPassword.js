@@ -1,9 +1,10 @@
 import Users from '../../database/models/Users';
 import nodemailer from 'nodemailer';
 import path from 'path';
+import jwt from 'jsonwebtoken';
 import hbs from 'nodemailer-express-handlebars';
-import { createTokenForPasswordReset } from '../../helpers';
-import { serverEmail, emailPassword, emailService } from '../../config';
+import { createTokenForPasswordReset, hashUserPassword } from '../../helpers';
+import { serverEmail, emailPassword, emailService, secretForResetPassword } from '../../config';
 
 class ResetPassword {
   constructor () {
@@ -40,10 +41,8 @@ class ResetPassword {
 
     transporeter.sendMail(mailOptions, (error, result) => {
       if (error) {
-        console.log('inside send mail error', error);
         next(error);
       } else {
-        console.log('inside send email result', result);
         res.json({
           Email_Sent: 'Success'
         });
@@ -55,16 +54,12 @@ class ResetPassword {
     const { userEmail } = req.body;
     const user = await Users.findOne({ where: { email: userEmail } });
     if (!user) {
-      const context = {
-        userEmail
-      };
+      const context = { userEmail };
       this._emailSender(userEmail, 'error', context, res, next);
       res.json({ Error: 'Failed To Sent Confirmation Email Please Try Again!!!' });
     } else {
       const token = await createTokenForPasswordReset(user);
-      const context = {
-        url: `http://localhost:5000/auth/resetPassword/${token}`
-      };
+      const context = { url: `http://localhost:5000/auth/forgotPassword/resetPassword/${token}` };
       this._emailSender(userEmail, 'forgotPassword', context, res, next, (error) => {
         if (error) {
           next(error);
@@ -73,6 +68,33 @@ class ResetPassword {
         }
       });
     }
+  }
+
+  createResetPasswordView (req, res, next) {
+    console.log('inside create reset view req.params', req.params);
+    const { token } = req.params;
+    jwt.verify(token, secretForResetPassword, async (err, decoded) => {
+      if (err) {
+        return res.json({
+          success: false,
+          message: 'Token is not valid'
+        });
+      } else {
+        console.log('inside create reset view decoded', decoded);
+        res.render('resetPasswordForm', { userID: decoded.userID });
+      }
+    });
+  }
+
+  async resetPassword (req, res, next) {
+    console.log('inside reset passowrod req.body', req.body);
+    const { userID, newPassword } = req.body;
+    const hash = await hashUserPassword(newPassword, next);
+    const updateResult = Users.update(
+      { password: hash },
+      { where: { id: userID } }
+    );
+    console.log('inside reset users password update result', updateResult);
   }
 }
 

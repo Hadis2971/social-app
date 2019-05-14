@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import Sequelize from 'sequelize';
 import PostComments from '../database/models/PostComments';
 import UsersPostsLikes from '../database/models/UsersPostsLikes';
-import { secretOrKey } from '../config';
+import { secretOrKey, secretForResetPassword } from '../config';
 const Op = Sequelize.Op;
 
 export const handleEmptyInput = (input) => {
@@ -127,10 +127,9 @@ export const attachlikeDislikeOnPosts = async (postsWithComments, userID) => {
 
 export const createTokenForPasswordReset = async (user) => {
   const payload = {
-    id: user.id,
+    userID: user.id,
     userEmail: user.email
   };
-  const finalSecretOrKey = secretOrKey + Date.now();
-  const token = await jwt.sign(payload, finalSecretOrKey, { expiresIn: 300 });
+  const token = await jwt.sign(payload, secretForResetPassword, { expiresIn: 300 });
   return token;
 };

@@ -3,7 +3,7 @@ const router = require('express').Router();
 
 router.post('/', resetPassword.forgotPassword);
 
-router.get('/resetPassword/:token', (req, res, next) => res.render('resetPasswordForm'));
-router.post('/resetPassword/:token');
+router.get('/resetPassword/:token', resetPassword.createResetPasswordView);
+router.post('/resetPassword/', resetPassword.resetPassword);
 
 export default router;
