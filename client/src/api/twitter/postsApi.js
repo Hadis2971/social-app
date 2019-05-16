@@ -1,16 +1,14 @@
 import Network from '../network/network';
-
+import instanceModifiers from '../instanceModifeirs';
 class PostsApi {
   constructor () {
     this.baseUrl = '/twitter/posts';
   }
 
   async postNewPost (newPost) {
-    const token = localStorage.getItem('token');
-    const refreshtoken = localStorage.getItem('refreshToken');
     try {
-      const postNewPostResult = await Network.post(this.baseUrl, token, refreshtoken, newPost);
-      console.log('inside new post api result', postNewPostResult);
+      instanceModifiers.tokenDecorator(this);
+      const postNewPostResult = await Network.post(this.baseUrl, this.token, this.refreshtoken, newPost);
       return postNewPostResult;
     } catch (error) {
       console.log('inside post new post error', error);
@@ -18,10 +16,9 @@ class PostsApi {
   }
 
   async getPosts () {
-    const token = localStorage.getItem('token');
-    const refreshtoken = localStorage.getItem('refreshToken');
     try {
-      const getPostsResult = await Network.get(this.baseUrl, token, refreshtoken);
+      instanceModifiers.tokenDecorator(this);
+      const getPostsResult = await Network.get(this.baseUrl, this.token, this.refreshtoken);
       return getPostsResult;
     } catch (error) {
       console.log('inside get posts error', error);
@@ -30,10 +27,9 @@ class PostsApi {
 
   async likePost (like, id) {
     const body = { like, id };
-    const token = localStorage.getItem('token');
-    const refreshtoken = localStorage.getItem('refreshToken');
     try {
-      const likePostResult = Network.post(`${this.baseUrl}/likes`, token, refreshtoken, body);
+      instanceModifiers.tokenDecorator(this);
+      const likePostResult = Network.post(`${this.baseUrl}/likes`, this.token, this.refreshtoken, body);
       return likePostResult;
     } catch (error) {
       console.log('inside like post error', error);
@@ -42,10 +38,9 @@ class PostsApi {
 
   async dislikePost (like, id) {
     const body = { like, id };
-    const token = localStorage.getItem('token');
-    const refreshtoken = localStorage.getItem('refreshToken');
     try {
-      const dislikePostResult = Network.post(`${this.baseUrl}/dislikes`, token, refreshtoken, body);
+      instanceModifiers.tokenDecorator(this);
+      const dislikePostResult = Network.post(`${this.baseUrl}/dislikes`, this.token, this.refreshtoken, body);
       return dislikePostResult;
     } catch (error) {
       console.log('inside like post error', error);
@@ -54,10 +49,9 @@ class PostsApi {
 
   async createCommentForPost (post, comment) {
     const body = { post, comment };
-    const token = localStorage.getItem('token');
-    const refreshtoken = localStorage.getItem('refreshToken');
     try {
-      const createCommentResult = await Network.post(`${this.baseUrl}/comments`, token, refreshtoken, body);
+      instanceModifiers.tokenDecorator(this);
+      const createCommentResult = await Network.post(`${this.baseUrl}/comments`, this.token, this.refreshtoken, body);
       return createCommentResult;
     } catch (error) {
       console.log('inside create comment for post error', error);
@@ -65,5 +59,4 @@ class PostsApi {
   }
 }
 
-const postsApi = new PostsApi();
-export default postsApi;
+export default new PostsApi();

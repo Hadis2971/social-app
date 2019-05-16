@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import { Formik, Form, Field } from 'formik';
 import UserMsg from '../../common/userMsg';
-import Spinner from '../../standard_UI/spinner';
+import Spinner from '../../standardLayout/spinner';
 import { validationSchema } from './validation';
-import Button from '../../standard_UI/button';
+import Button from '../../standardLayout/button';
 
 import './forgotPasswordForm.css';
 

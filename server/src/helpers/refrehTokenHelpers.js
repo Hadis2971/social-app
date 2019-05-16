@@ -12,6 +12,8 @@ class RefreshTokenHelpers {
   async checkIfRefreshTokenIsValid (refreshToken) {
     const now = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
     const expirationDate = moment(new Date(refreshToken.expirationDate)).format('YYYY-MM-DD HH:mm:ss');
+    console.log('now', now);
+    console.log('expirationDate', expirationDate);
     if (now >= expirationDate) {
       return false;
     } else {
@@ -47,6 +49,7 @@ class RefreshTokenHelpers {
   }
 
   createPayloadForNewToken (payload) {
+    console.log('create payload for new token', payload);
     const newPayload = {
       userID: payload.userID,
       firstName: payload.firstName,

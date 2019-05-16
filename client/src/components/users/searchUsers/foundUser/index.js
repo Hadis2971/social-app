@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import Picture from '../../../standard_UI/picture';
+import Picture from '../../../standardLayout/picture';
 
 import './foundUser.css';
 

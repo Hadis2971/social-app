@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Spinner from '../../standard_UI/spinner';
+import Spinner from '../../standardLayout/spinner';
 import Errors from '../../common/errors';
 import UserMsg from '../../common/userMsg';
-import UserInfo from '../../users/user_info';
-import SearchForUserConatiner from '../../users/search_users/searchForUserContainer';
-import FriendRequests from '../../users/friend_requests';
+import UserInfo from '../../users/userInfo';
+import SearchForUserConatiner from '../../users/searchUsers/searchForUserContainer';
+import FriendRequests from '../../users/friendRequests';
 
 import { turnObjectIntoArray } from '../../../helpers';
 

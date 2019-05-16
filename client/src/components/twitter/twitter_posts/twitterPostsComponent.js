@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Formik, Form, Field } from 'formik';
 import Post from './post';
-import Spinner from '../../standard_UI/spinner';
-import Button from '../../standard_UI/button';
+import Spinner from '../../standardLayout/spinner';
+import Button from '../../standardLayout/button';
 import './twitterPosts.css';
 
 class TwitterPostsComponent extends Component {

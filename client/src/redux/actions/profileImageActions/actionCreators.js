@@ -5,7 +5,6 @@ export const getUsersProfilePicture = () => async (dispatch) => {
   dispatch({ type: types.START_FATCHING_PICTURE });
   const id = localStorage.getItem('userID');
   const profileImageUrl = await usersApi.getProfileImage(id);
-  console.log('inside get user profile picture response', profileImageUrl);
   if ((!profileImageUrl) || profileImageUrl.data.Error) {
     dispatch({
       type: types.FETCHING_PICTURE_FAIL,

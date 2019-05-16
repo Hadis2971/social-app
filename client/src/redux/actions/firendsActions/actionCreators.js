@@ -1,9 +1,10 @@
 import * as types from './actionTypes';
 import usersApi from '../../../api/users/usersApi';
+import friendsApi from '../../../api/users/friendsApi';
 
 export const addNewFriend = (users, element) => async (dispatch) => {
   dispatch({ type: types.SEND_FRIEND_REQUEST_START });
-  const addNewFriendResult = await usersApi.addNewFriend(users, element);
+  const addNewFriendResult = await friendsApi.addNewFriend(users, element);
   if ((!addNewFriendResult) || addNewFriendResult.data.Error) {
     dispatch({
       type: types.SEND_FRIEND_REQUEST_FAIL,
@@ -34,7 +35,7 @@ export const searchForFriends = (searchTerm) => async (dispatch) => {
 
 export const getAllFriendRequests = () => async (dispatch) => {
   dispatch({ type: types.START_FETCHING_FRIEND_REQUESTS });
-  const fetchingFriendRequestResult = await usersApi.getAllFriendRequests();
+  const fetchingFriendRequestResult = await friendsApi.getAllFriendRequests();
   if ((!fetchingFriendRequestResult) || fetchingFriendRequestResult.data.Error) {
     dispatch({
       type: types.FAIL_FETCHING_FRIEND_REQUESTS,
@@ -49,7 +50,7 @@ export const getAllFriendRequests = () => async (dispatch) => {
 };
 
 export const acceptFriendRequest = (id, element) => async (dispatch) => {
-  const acceptFriendRequestResult = await usersApi.acceptFriendRequest(id, element);
+  const acceptFriendRequestResult = await friendsApi.acceptFriendRequest(id, element);
   if ((!acceptFriendRequestResult) || acceptFriendRequestResult.data.Error) {
     dispatch({
       type: types.CONFIRM_FRIEND_REQUEST_FAIL,
@@ -65,7 +66,7 @@ export const acceptFriendRequest = (id, element) => async (dispatch) => {
 };
 
 export const declineFriendRequest = (id, element) => async (dispatch) => {
-  const declineFriendRequestResult = await usersApi.declineFriendRequest(id, element);
+  const declineFriendRequestResult = await friendsApi.declineFriendRequest(id, element);
   if ((!declineFriendRequestResult) || declineFriendRequestResult.data.Error) {
     dispatch({
       type: types.CONFIRM_FRIEND_REQUEST_FAIL,

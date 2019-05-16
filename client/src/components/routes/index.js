@@ -2,11 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import PrivateRoute from './privateRoute';
-import NavbarContainer from '../standard_UI/navbar/navbarContainer';
+import NavbarContainer from '../standardLayout/navbar/navbarContainer';
 import RegisterContainer from '../auth/register/registerContainer';
 import LoginContainer from '../auth/login/loginContainer';
 import Logout from '../auth/logout';
-import ProfilePageContainer from '../users/profile_page/profilePageContainer';
+import ProfilePageContainer from '../users/profilePage/profilePageContainer';
 import TwitterUserContainer from '../twitter/twitter_user/twitterUserContainer';
 import TwitterPostsContainer from '../twitter/twitter_posts/twitterPostsContainer';
 import ForgotPasswordContainer from '../auth/forgotPassword/forgotPasswordContainer';

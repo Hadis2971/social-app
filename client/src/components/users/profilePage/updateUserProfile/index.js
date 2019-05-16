@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Formik, Form, Field } from 'formik';
-import Picture from '../../../standard_UI/picture';
-import Button from '../../../standard_UI/button';
+import CropableImage from '../../../common/cropableImage';
+import Button from '../../../standardLayout/button';
 import Errors from '../../../common/errors';
 import UserMsg from '../../../common/userMsg';
 
@@ -13,15 +13,25 @@ class UpdateUserInfo extends Component {
 
     constructor (props) {
       super(props);
-      this.fileInput = React.createRef();
+      this.state = {
+        newImage: null
+      };
     }
 
     submitUpdateInfoForm = (newInfo) => {
+        const { newImage } = this.state;
         const { updateUserInfo } = this.props;
-        const updateObject = createUpdateObject(newInfo, this.fileInput.current.files[0]);
+        const file = (newImage) ? newImage : null;
+        const updateObject = createUpdateObject(newInfo, file);
         const formData = createFormData(updateObject);
         updateUserInfo(formData);
     }
+
+    getNewProfileImage = (newImage) => {
+      this.setState({
+        newImage: newImage
+      });
+    } 
 
   render () {
     const { src, errors, updateUserInfoSuccess } = this.props;
@@ -29,6 +39,7 @@ class UpdateUserInfo extends Component {
     const initialValues = {
       username, userEmail, firstName, lastName
     }
+    console.log('new Image', this.state.newImage);
     return (
       <Formik
         initialValues={initialValues}
@@ -36,7 +47,6 @@ class UpdateUserInfo extends Component {
         render={(props) => {
           return (
             <div id='update-info-box'>
-            <Picture src={src}>
             {(!fetchingSuccess) && <Errors errors='Failed To Load Profile Picture!!!' />}
             <Form className='mt-3' encType='multipart/form-data'>
               <h1 className='text-center' style={{ color: '#3399ff' }}>Update Your Profile Information</h1>
@@ -68,11 +78,7 @@ class UpdateUserInfo extends Component {
                   className='form-control'
                   />
               </div>
-              <div className='custom-file mb-3'>
-                <input ref={this.fileInput} type='file' name='userProfilePicture' className='custom-file-input' id='userProfilePicture' />
-                <label className='custom-file-label' htmlFor='userProfilePicture'>Choose file...</label>
-                <div className='invalid-feedback'>Example invalid custom file feedback</div>
-              </div>
+              <CropableImage src={src} getNewProfileImage={this.getNewProfileImage}/>
               {errors && <Errors errors={errors} />}
               {updateUserInfoSuccess && <UserMsg msgType='alert-success' message='Profile Update Success' />}
               <Button
@@ -80,7 +86,6 @@ class UpdateUserInfo extends Component {
                 btnClass='btn btn-primary btn-block'
                 btnText='Submit' />
             </Form>
-            </Picture>
             </div>
           );
         }}

@@ -1,25 +1,13 @@
 import Users from '../../database/models/Users';
-import FriendRequests from '../../database/models/FriendRequests';
 import Friends from '../../database/models/Friends';
-import { createUsersResultArray, extractRequestingUserIds, getFriendsID, finalSearchUsersResult } from '../../helpers';
+import { createUsersResultArray, getFriendsID, finalSearchUsersResult } from '../../helpers';
 import { checkIfEmailExists } from '../auth/checkUsers';
-const Sequelize = require('sequelize');
+import Sequelize from 'sequelize';
 const Op = Sequelize.Op;
 
 class AccessUsersData {
-  async getAllFriendRequests (req, res, next) {
-    try {
-      const allRequestingUsers = await FriendRequests.findAll({ where: { requestedUser: req.decoded.userID } });
-      const usersArray = extractRequestingUserIds(allRequestingUsers);
-      const allUsers = await Users.findAll({ where: { id: { [Op.in]: usersArray } } });
-      const resultArray = createUsersResultArray(allUsers);
-      res.json(resultArray);
-    } catch (error) {
-      next(error);
-    }
-  }
-
   async getProfilePictureUrl (req, res, next) {
+    console.log('inside get profile pic url req.decoded', req.decoded);
     try {
       const user = await Users.findOne({ where: { id: req.decoded.userID } });
       res.json({ url: user.profileImage });
@@ -89,61 +77,6 @@ class AccessUsersData {
       });
     } catch (error) {
       next(error);
-    }
-  }
-
-  async addNewFriend (req, res, next) {
-    try {
-      await FriendRequests.create(req.body);
-      res.json({ Success: true });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async confrimFriendRequest (req, res, next) {
-    const { confirm, requestingUser } = req.body;
-    const requestedUser = req.decoded.userID;
-    if (!confirm) {
-      try {
-        await FriendRequests.destroy({
-          where: {
-            [Op.and]: [
-              {
-                requestingUser: requestingUser
-              },
-              {
-                requestedUser: requestedUser
-              }
-            ]
-          }
-        });
-        res.json(true);
-      } catch (error) {
-        next(error);
-      }
-    } else {
-      try {
-        const request = await FriendRequests.findOne({
-          where: {
-            [Op.and]: [
-              {
-                requestingUser: requestingUser
-              },
-              {
-                requestedUser: requestedUser
-              }
-            ]
-          }
-        });
-        await request.update({
-          accepted: true
-        });
-        await request.destroy();
-        res.json(true);
-      } catch (error) {
-        next(error);
-      }
     }
   }
 }

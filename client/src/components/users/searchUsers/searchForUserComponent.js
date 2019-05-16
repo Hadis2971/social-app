@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Button from '../../standard_UI/button';
-import SearchResults from './search_results';
+import Button from '../../standardLayout/button';
+import SearchResults from './searchResults';
 import Errors from '../../common/errors';
-import Spinner from '../../standard_UI/spinner';
+import Spinner from '../../standardLayout/spinner';
 import './searchUsers.css';
 
 class SearchForUserComponent extends Component {

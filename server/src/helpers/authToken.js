@@ -48,7 +48,6 @@ export const verifyToken = (req, res, next) => {
         if (req.headers['refreshtoken']) {
           jwt.verify(token, req.headers['refreshtoken'], async (err, decoded) => {
             if (err) {
-              console.log('vrify token req', req);
               const payload = await jwt.decode(token);
               const newPayload = refreshTokenHelpers.createPayloadForNewToken(payload);
               const refreshToken = await refreshTokenHelpers.findRefreshToken(payload.userID);

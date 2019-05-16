@@ -41,9 +41,7 @@ class AccessPostsData {
       console.log('inside get friends posts get all friends error', error);
       next(error);
     }
-    console.log('insde get griends firends result', friends);
     const users = (getFriendsID(friends, userID));
-    console.log('inside get friends posts get all friends ids usets', users);
     try {
       const allPosts = await Posts.findAll({
         where: {

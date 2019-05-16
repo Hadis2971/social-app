@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Spinner from '../../standard_UI/spinner';
+import Spinner from '../../standardLayout/spinner';
 import UpdateUserInfo from './updateUserProfile';
 
 import './profilePage.css';

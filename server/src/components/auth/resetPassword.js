@@ -71,7 +71,6 @@ class ResetPassword {
   }
 
   createResetPasswordView (req, res, next) {
-    console.log('inside create reset view req.params', req.params);
     const { token } = req.params;
     jwt.verify(token, secretForResetPassword, async (err, decoded) => {
       if (err) {
@@ -80,14 +79,12 @@ class ResetPassword {
           message: 'Token is not valid'
         });
       } else {
-        console.log('inside create reset view decoded', decoded);
         res.render('resetPasswordForm', { userID: decoded.userID });
       }
     });
   }
 
   async resetPassword (req, res, next) {
-    console.log('inside reset passowrod req.body', req.body);
     const { userID, newPassword } = req.body;
     const hash = await hashUserPassword(newPassword, next);
     const updateResult = await Users.update(

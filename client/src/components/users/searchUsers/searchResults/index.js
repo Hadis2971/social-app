@@ -1,5 +1,5 @@
 import React from 'react';
-import FoundUser from '../found_user';
+import FoundUser from '../foundUser';
 import './searchResults.css';
 
 const SearchResults = (props) => {
