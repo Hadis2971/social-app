@@ -1,13 +1,13 @@
 import Users from '../../database/models/Users';
 import Friends from '../../database/models/Friends';
-import { createUsersResultArray, getFriendsID, finalSearchUsersResult } from '../../helpers';
+import usersHelpers from '../../helpers/usersHelpers';
+import friendsHelpers from '../../helpers/friedsHelpers';
 import { checkIfEmailExists } from '../auth/checkUsers';
 import Sequelize from 'sequelize';
 const Op = Sequelize.Op;
 
 class AccessUsersData {
   async getProfilePictureUrl (req, res, next) {
-    console.log('inside get profile pic url req.decoded', req.decoded);
     try {
       const user = await Users.findOne({ where: { id: req.decoded.userID } });
       res.json({ url: user.profileImage });
@@ -55,7 +55,7 @@ class AccessUsersData {
         }
       });
       if (foundUsers.length) {
-        const usersResultArr = createUsersResultArray(foundUsers);
+        const usersResultArr = usersHelpers.createUsersResultArray(foundUsers);
         const friends = await Friends.findAll({
           where: {
             [Op.or]: [
@@ -68,14 +68,47 @@ class AccessUsersData {
             ]
           }
         });
-        const friendsIds = getFriendsID(friends, userID);
-        finalSearchUsersResult(usersResultArr, friendsIds);
+        const friendsIds = friendsHelpers.getFriendsID(friends, userID);
+        usersHelpers.finalSearchUsersResult(usersResultArr, friendsIds);
         return res.json(usersResultArr);
       }
       res.json({
         Error: 'No Match Found!!!'
       });
     } catch (error) {
+      next(error);
+    }
+  }
+
+  async getRequestedUserProfile (req, res, next) {
+    const { id } = req.params;
+    const { userID } = req.decoded;
+    const values = [ id, userID ];
+    try {
+      const friend = await Friends.findOne({
+        where: {
+          [Op.and]: [
+            {
+              friendOne: {
+                [Op.in]: values
+              }
+            },
+            {
+              friendTwo: {
+                [Op.in]: values
+              }
+            }
+          ]
+        }
+      });
+      const user = await Users.findOne({ where: { id: id } });
+      if (friend || (id == userID)) {
+        return usersHelpers.createProfilePageForFriend(user, res);
+      } else {
+        return usersHelpers.createProfilePageForUser(user, res);
+      }
+    } catch (error) {
+      console.log('inside get requested user profile error', error);
       next(error);
     }
   }

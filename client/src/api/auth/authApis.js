@@ -25,7 +25,6 @@ class AuthApis {
   async forgotUserPassword (userEmail) {
     try {
       const resetPasswordResult = await Network.post(`${this.baseUrl}/forgotPassword`, null, null, userEmail);
-      console.log('inside forgot user password authApi result', resetPasswordResult);
       return resetPasswordResult;
     } catch (error) {
       console.log('inside reset user password error', error);

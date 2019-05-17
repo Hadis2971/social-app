@@ -15,6 +15,16 @@ class UsersApi {
     }
   }
 
+  async getRequestedProfilePage (id) {
+    try {
+      instanceModifiers.tokenDecorator(this);
+      const requestedProfileResult = await Network.get(`${this.baseUrl}/profile/${id}`, this.token, this.refreshtoken);
+      return requestedProfileResult;
+    } catch (error) {
+      console.log('inside get requested profile page error', error);
+    }
+  }
+
   async updateUserInfo (newInfo) {
     try {
       instanceModifiers.tokenDecorator(this);

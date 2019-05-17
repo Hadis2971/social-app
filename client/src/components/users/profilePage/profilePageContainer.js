@@ -1,5 +1,5 @@
 import * as profileImageActions from '../../../redux/actions/profileImageActions/actionCreators';
-import * as updateProfileActions from '../../../redux/actions/updateUserActions/actionCreators';
+import * as updateProfileActions from '../../../redux/actions/usersActions/usersAccounts';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ProfilePageComponent from './profilePageComponent';

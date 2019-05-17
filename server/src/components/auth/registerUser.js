@@ -1,5 +1,5 @@
 import { checkIfEmailExists } from './checkUsers';
-import { hashUserPassword } from '../../helpers';
+import authHelpers from '../../helpers/authHelpers';
 import Users from '../../database/models/Users';
 
 export const registerUser = async (req, res, next) => {
@@ -14,7 +14,7 @@ export const registerUser = async (req, res, next) => {
     password: req.body.password
   };
 
-  newUser.password = await hashUserPassword(newUser.password);
+  newUser.password = await authHelpers.hashUserPassword(newUser.password);
   const user = await Users.create(newUser);
 
   res.json(user);

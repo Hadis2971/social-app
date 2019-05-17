@@ -41,6 +41,7 @@ class Comments extends Component {
       commentsArr = userPost.comments.map(comment => {
         return <Comment
           key={comment.id}
+          user={comment.user}
           profileImage={comment.profileImage}
           commentText={comment.comment}
           firstName={comment.firstName}

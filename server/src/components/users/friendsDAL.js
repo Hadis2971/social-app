@@ -1,6 +1,7 @@
 import Users from '../../database/models/Users';
 import FriendRequests from '../../database/models/FriendRequests';
-import { extractRequestingUserIds, createUsersResultArray } from '../../helpers';
+import usersHelpers from '../../helpers/usersHelpers';
+import friendsHelpers from '../../helpers/friedsHelpers';
 import Sequelize from 'sequelize';
 const Op = Sequelize.Op;
 
@@ -8,9 +9,9 @@ class AccessFriendsData {
   async getAllFriendRequests (req, res, next) {
     try {
       const allRequestingUsers = await FriendRequests.findAll({ where: { requestedUser: req.decoded.userID } });
-      const usersArray = extractRequestingUserIds(allRequestingUsers);
+      const usersArray = friendsHelpers.extractRequestingUserIds(allRequestingUsers);
       const allUsers = await Users.findAll({ where: { id: { [Op.in]: usersArray } } });
-      const resultArray = createUsersResultArray(allUsers);
+      const resultArray = usersHelpers.createUsersResultArray(allUsers);
       res.json(resultArray);
     } catch (error) {
       next(error);

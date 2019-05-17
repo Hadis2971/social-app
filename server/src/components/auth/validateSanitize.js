@@ -1,8 +1,8 @@
-import registerSanitize from '../../input_check/sanitize/register';
-import registerValidation from '../../input_check/validate/register';
+import registerSanitize from '../../inputCheck/sanitize/register';
+import registerValidation from '../../inputCheck/validate/register';
 
-import loginValidation from '../../input_check/validate/login';
-import loginSanitize from '../../input_check/sanitize/login';
+import loginValidation from '../../inputCheck/validate/login';
+import loginSanitize from '../../inputCheck/sanitize/login';
 
 export const validateRegisterInput = (req, res, next) => {
   const { errors, isValid } = registerValidation(req.body);

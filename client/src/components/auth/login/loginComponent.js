@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Formik, Form, Field } from "formik";
 import { Redirect } from "react-router-dom";
-import Button from "../../standard_UI/button";
-import Spinner from "../../standard_UI/spinner";
+import Button from "../../standardLayout/button";
+import Spinner from "../../standardLayout/spinner";
 import Errors from "../../common/errors";
 
 import ForgotPasswordEnterEmail from '../forgotPassword/forgotPasswordEnterEmail';

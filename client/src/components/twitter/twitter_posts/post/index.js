@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import Comments from '../comments';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
@@ -43,11 +44,12 @@ class Post extends PureComponent {
           id={id} />
       : null;
 
+    
     return (
       <div className='post-comment-section'>
         <div className='post-box'>
           <div className='img-post-box'>
-            <span className='img-box'><img src={profileImage} className='img-fluid post-img' /></span>
+            <span className='img-box'><Link to={{pathname: '/requestedProfile', state: {user: userPost.user}}}><img src={profileImage} className='img-fluid post-img' /></Link></span>
             <span className='lead postText'>{postText}</span>
           </div>
           <div className='user-information'>

@@ -1,0 +1,42 @@
+.requested-profile-post{
+    position: relative;
+    width: 80%;
+    border: 0.07em solid #eee;
+    padding: 2.1%;
+    box-shadow: 0.07em 0.08em 0.1em #ccc;
+    margin: 3% auto;
+}
+
+.icon-up-requested-profile-page {
+    position: absolute;
+    display: flex;
+    justify-content: space-evenly;
+    width: 15%;
+    bottom: 0.3em;
+    right: 5.5em;
+    font-size: 1.3em;
+    transform: rotateY(180deg);
+    color: #3399ff;
+    cursor: pointer;
+}
+
+.requested-profile-page-like-count{
+    transform: rotateY(180deg);
+}
+
+.icon-down-requested-profile-page {
+    position: absolute;
+    display: flex;
+    justify-content: space-evenly;
+    width: 15%;
+    bottom: 0.3em;
+    right: 0.5em;
+    font-size: 1.3em;
+    transform: rotateY(180deg);
+    color: #ff4d4d;
+    cursor: pointer;
+}
+
+.requested-profile-page-dislike-count{
+    transform: rotateY(180deg);
+}

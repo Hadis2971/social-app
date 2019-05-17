@@ -1,6 +1,6 @@
-import * as types from '../../actions/updateUserActions/actionTypes';
+import * as types from '../../../actions/usersActions/actionTypes';
 import inistialState from './initialState';
-import { updateStateObject } from '../../../helpers';
+import { updateStateObject } from '../../../../helpers';
 const updateUserReducer = (state = inistialState, action) => {
   switch (action.type) {
     case (types.UPDATE_USER_START): {

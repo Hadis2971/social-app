@@ -31,7 +31,6 @@ class TwitterComponent extends Component {
       confrimFriendRequestFail,
       addNewFriendSuccess } = this.props;
     const { acceptFriendRequest, declineFriendRequest } = this.props.actions;
-    console.log(confrimFriendRequestSuccess);
     return (
       <div id='twitter-box' className='row'>
         {startFetchingFriendRequests && <Spinner />}
@@ -47,6 +46,7 @@ class TwitterComponent extends Component {
           {addNewFriendSuccess && <UserMsg msgType='alert-success' message='Request Sent' />}
         </div>
         <div className='col-lg-7'>
+          {confrimFriendRequestSuccess && <UserMsg msgType='alert-success' message='Everything Went Well' />}
           {confrimFriendRequestFail && <Errors errors='Something Went Wrong Please Try Again!!!' />}
           <FriendRequests
             acceptFriendRequest={acceptFriendRequest}

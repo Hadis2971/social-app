@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 import path from 'path';
 import jwt from 'jsonwebtoken';
 import hbs from 'nodemailer-express-handlebars';
-import { createTokenForPasswordReset, hashUserPassword } from '../../helpers';
+import authHelpers from '../../helpers/authHelpers';
 import { serverEmail, emailPassword, emailService, secretForResetPassword } from '../../config';
 
 class ResetPassword {
@@ -58,7 +58,7 @@ class ResetPassword {
       this._emailSender(userEmail, 'error', context, res, next);
       res.json({ Error: 'Failed To Sent Confirmation Email Please Try Again!!!' });
     } else {
-      const token = await createTokenForPasswordReset(user);
+      const token = await authHelpers.createTokenForPasswordReset(user);
       const context = { url: `http://localhost:5000/auth/forgotPassword/resetPassword/${token}` };
       this._emailSender(userEmail, 'forgotPassword', context, res, next, (error) => {
         if (error) {
@@ -86,7 +86,7 @@ class ResetPassword {
 
   async resetPassword (req, res, next) {
     const { userID, newPassword } = req.body;
-    const hash = await hashUserPassword(newPassword, next);
+    const hash = await authHelpers.hashUserPassword(newPassword, next);
     const updateResult = await Users.update(
       { password: hash },
       { where: { id: userID } }

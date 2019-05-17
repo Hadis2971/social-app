@@ -1,7 +1,8 @@
 import Posts from '../../../database/models/Posts';
 import Friends from '../../../database/models/Friends';
+import friendsHelpers from '../../../helpers/friedsHelpers';
+import postsHelers from '../../../helpers/postsHeleprs';
 import Sequelize from 'sequelize';
-import { getFriendsID, attachCommentsToPosts, attachlikeDislikeOnPosts } from '../../../helpers';
 const Op = Sequelize.Op;
 class AccessPostsData {
   async createNewPost (req, res, next) {
@@ -41,7 +42,7 @@ class AccessPostsData {
       console.log('inside get friends posts get all friends error', error);
       next(error);
     }
-    const users = (getFriendsID(friends, userID));
+    const users = (friendsHelpers.getFriendsID(friends, userID));
     try {
       const allPosts = await Posts.findAll({
         where: {
@@ -51,8 +52,8 @@ class AccessPostsData {
         }
       });
       if (allPosts.length) {
-        const postsWithComments = await attachCommentsToPosts(allPosts);
-        const postsWithCommentsLikeDislike = await attachlikeDislikeOnPosts(postsWithComments, userID);
+        const postsWithComments = await postsHelers.attachCommentsToPosts(allPosts);
+        const postsWithCommentsLikeDislike = await postsHelers.attachlikeDislikeOnPosts(postsWithComments, userID);
         return res.json(postsWithCommentsLikeDislike);
       }
       return res.json([]);

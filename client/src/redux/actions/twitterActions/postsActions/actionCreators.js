@@ -21,7 +21,6 @@ export const postNewPost = (newPost) => async (dispatch) => {
 export const getPosts = () => async (dispatch) => {
   dispatch({ type: types.GET_POSTS_START });
   const getPostsResult = await postsApi.getPosts();
-  console.log('isnide get posts', getPostsResult);
   if ((!getPostsResult) || getPostsResult.data.Error) {
     dispatch({
       type: types.GET_POSTS_FAIL,

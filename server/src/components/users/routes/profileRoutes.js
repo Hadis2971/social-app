@@ -6,7 +6,7 @@ const router = require('express').Router();
 
 router.use(verifyToken);
 
-router.get('/:id');
+router.get('/:id', accessUsersData.getRequestedUserProfile);
 router.get('/', accessUsersData.getProfilePictureUrl);
 router.put('/', upload.single('userProfilePicture'),
   (req, res, next) => accessUsersData.updateUserProfile(req, res, next));
