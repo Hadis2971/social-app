@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Spinner from '../../standardLayout/spinner';
 import UpdateUserInfo from './updateUserProfile';
 
 import './profilePage.css';
 
-class ProfilePageComponent extends Component {
+class ProfilePageComponent extends PureComponent {
   async componentDidMount () {
     const { getUsersProfilePicture } = this.props.actions;
     await getUsersProfilePicture();

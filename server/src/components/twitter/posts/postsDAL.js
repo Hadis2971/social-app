@@ -1,7 +1,7 @@
 import Posts from '../../../database/models/Posts';
 import Friends from '../../../database/models/Friends';
 import friendsHelpers from '../../../helpers/friedsHelpers';
-import postsHelers from '../../../helpers/postsHeleprs';
+import postsServices from './postsServices';
 import Sequelize from 'sequelize';
 const Op = Sequelize.Op;
 class AccessPostsData {
@@ -24,6 +24,7 @@ class AccessPostsData {
 
   async getFriendsPosts (req, res, next) {
     const { userID } = req.decoded;
+    const offset = (req.params.offset) ? parseInt(req.params.offset) : 0;
     let friends = null;
     try {
       friends = await Friends.findAll({
@@ -49,16 +50,36 @@ class AccessPostsData {
           user: {
             [Op.in]: users
           }
-        }
+        },
+        limit: 5,
+        offset: offset
       });
       if (allPosts.length) {
-        const postsWithComments = await postsHelers.attachCommentsToPosts(allPosts);
-        const postsWithCommentsLikeDislike = await postsHelers.attachlikeDislikeOnPosts(postsWithComments, userID);
+        const postsWithComments = await postsServices.attachCommentsToPosts(allPosts);
+        const postsWithCommentsLikeDislike = await postsServices.attachlikeDislikeOnPosts(postsWithComments, userID);
         return res.json(postsWithCommentsLikeDislike);
       }
       return res.json([]);
     } catch (error) {
       console.log('inside get friends posts get all posts error', error);
+      next(error);
+    }
+  }
+
+  async loadMorePostsForRequestedProfile (req, res, next) {
+    const { user, offset } = req.params;
+    try {
+      const result = await Posts.findAll({
+        where: {
+          user: user
+        },
+        limit: 5,
+        offset: parseInt(offset),
+        duplicating: false
+      });
+      res.json(result);
+    } catch (error) {
+      console.log('load more posts error', error);
       next(error);
     }
   }

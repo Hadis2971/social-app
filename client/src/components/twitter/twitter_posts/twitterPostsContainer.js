@@ -1,5 +1,5 @@
 import TwitterPostsComponent from './twitterPostsComponent';
-import * as postActionCreators from '../../../redux/actions/twitterActions/postsActions/actionCreators';
+import * as postActionCreators from '../../../state/actions/twitterActions/postsActions/actionCreators';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -7,8 +7,14 @@ const mapStateToProps = (state) => {
   return {
     usersPosts: state.twitterPosts.usersPosts,
     getPostsStart: state.twitterPosts.getPostsStart,
+    loadMorePostsFail: state.twitterPosts.loadMorePostsFail,
+    loadMorePostsDone: state.twitterPosts.loadMorePostsDone,
     profilePirctureURL: state.profileImage.profilePirctureURL,
-    createCommentForPostSuccess: state.twitterPosts.createCommentForPostSuccess
+    createCommentForPostSuccess: state.twitterPosts.createCommentForPostSuccess,
+    loadMoreCommentsForPostsStart: state.twitterPosts.loadMoreCommentsForPostsStart,
+    loadMoreCommentsForPostsSuccess: state.twitterPosts.loadMoreCommentsForPostsSuccess,
+    loadMoreCommentsForPostsFail: state.twitterPosts.loadMoreCommentsForPostsFail,
+    loadMoreCommentsForPostsDone: state.twitterPosts.loadMoreCommentsForPostsDone
   };
 };
 

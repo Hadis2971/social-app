@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as friendActionsCreators from '../../../redux/actions/firendsActions/actionCreators';
+import * as friendActionsCreators from '../../../state/actions/firendsActions/actionCreators';
 import SearchForUserComponent from './searchForUserComponent';
 
 const mapStateToProps = (state) => {
@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
     foundUsers: state.friendsReducer.foundUsers,
     searchForFriendStart: state.friendsReducer.searchForFriendStart,
     searchForFriendsError: state.friendsReducer.searchForFriendsError,
-    userID: state.login.userID
+    userID: state.authReducer.login.userID
   };
 };
 

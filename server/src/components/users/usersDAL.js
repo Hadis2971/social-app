@@ -1,8 +1,9 @@
 import Users from '../../database/models/Users';
 import Friends from '../../database/models/Friends';
+import usersServices from './usersServices';
 import usersHelpers from '../../helpers/usersHelpers';
 import friendsHelpers from '../../helpers/friedsHelpers';
-import { checkIfEmailExists } from '../auth/checkUsers';
+import authDAL from '../auth/authDAL';
 import Sequelize from 'sequelize';
 const Op = Sequelize.Op;
 
@@ -20,7 +21,7 @@ class AccessUsersData {
     if (req.filename) {
       req.body.profileImage = req.filename;
     }
-    if ((!checkIfEmailExists(req.body.userEmail)) && req.body.userEmail !== req.decoded.userEmail) return res.json({ Error: 'Email Already Exists' });
+    if ((!authDAL.checkIfEmailExists(req.body.userEmail)) && req.body.userEmail !== req.decoded.userEmail) return res.json({ Error: 'Email Already Exists' });
     Users.update(
       req.body,
       { where: { id: req.decoded.userID } }
@@ -103,9 +104,9 @@ class AccessUsersData {
       });
       const user = await Users.findOne({ where: { id: id } });
       if (friend || (id == userID)) {
-        return usersHelpers.createProfilePageForFriend(user, res);
+        return usersServices.createProfilePageForFriend(user, res);
       } else {
-        return usersHelpers.createProfilePageForUser(user, res);
+        return usersServices.createProfilePageForUser(user, res);
       }
     } catch (error) {
       console.log('inside get requested user profile error', error);

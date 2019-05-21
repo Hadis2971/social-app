@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Button from '../../standardLayout/button';
 import SearchResults from './searchResults';
 import Errors from '../../common/errors';
 import Spinner from '../../standardLayout/spinner';
 import './searchUsers.css';
 
-class SearchForUserComponent extends Component {
+class SearchForUserComponent extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

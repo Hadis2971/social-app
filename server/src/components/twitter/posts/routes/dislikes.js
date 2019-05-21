@@ -1,4 +1,4 @@
-import { verifyToken } from '../../../../helpers/authToken';
+import { verifyToken } from '../../../auth/authToken';
 import dislikePostDAL from '../likeDislikePost/dislikePostDAL';
 const router = require('express').Router();
 

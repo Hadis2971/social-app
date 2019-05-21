@@ -1,9 +1,11 @@
 import accessPostsData from '../postsDAL';
-import { verifyToken } from '../../../../helpers/authToken';
+import { verifyToken } from '../../../auth/authToken';
 const router = require('express').Router();
 
 router.use(verifyToken);
 
+router.get('/requestedProfile/:user/:offset', accessPostsData.loadMorePostsForRequestedProfile);
+router.get('/:user/:offset', accessPostsData.getFriendsPosts);
 router.get('/', accessPostsData.getFriendsPosts);
 
 router.post('/', accessPostsData.createNewPost);

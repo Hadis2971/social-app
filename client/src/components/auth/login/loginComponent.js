@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Formik, Form, Field } from "formik";
 import { Redirect } from "react-router-dom";
 import Button from "../../standardLayout/button";
@@ -12,7 +12,7 @@ import loginValidation from "./validation";
 
 import "./login.css";
 
-class LoginComponent extends Component {
+class LoginComponent extends PureComponent {
 
     submitLoginForm = (user) => {
         const { loginUser } = this.props.actions;

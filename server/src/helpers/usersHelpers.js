@@ -1,5 +1,3 @@
-import Posts from '../database/models/Posts';
-
 class UsersHelpers {
   createUsersResultArray (users) {
     let helpArr = [];
@@ -25,28 +23,6 @@ class UsersHelpers {
         user.friend = true;
       }
     }
-  }
-
-  async createProfilePageForFriend (user, res) {
-    const posts = await Posts.findAll({ where: { user: user.id } });
-    const result = {
-      profileImage: user.profileImage,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      username: user.username,
-      posts
-    };
-    res.json(result);
-  }
-
-  createProfilePageForUser (user, res) {
-    const result = {
-      profileImage: user.profileImage,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      username: user.username
-    };
-    res.json(result);
   }
 }
 

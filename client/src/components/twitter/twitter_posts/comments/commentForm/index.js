@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-class CommentForm extends Component {
+import React, { PureComponent } from 'react';
+class CommentForm extends PureComponent {
   constructor (props) {
     super(props);
     this.state = {

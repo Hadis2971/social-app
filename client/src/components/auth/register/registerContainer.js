@@ -1,14 +1,14 @@
 import RegisterComponent from './registerComponent';
-import * as registerActionCreators from '../../../redux/actions/authActions/registerActions/actionCreators';
-import { loginUser } from '../../../redux/actions/authActions/loginActions/actionCreators';
+import * as registerActionCreators from '../../../state/actions/authActions/registerActions/actionCreators';
+import { loginUser } from '../../../state/actions/authActions/loginActions/actionCreators';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
   return {
-    registerStart: state.register.registerStart,
-    errors: state.register.errors,
-    registerSuccess: state.register.registerSuccess
+    registerStart: state.authReducer.register.registerStart,
+    errors: state.authReducer.register.errors,
+    registerSuccess: state.authReducer.register.registerSuccess
   };
 };
 

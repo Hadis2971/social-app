@@ -1,0 +1,12 @@
+.load-more-commnets-for-post{
+    color: #3399ff;
+    cursor: pointer;
+}
+
+.load-more-commnets-for-post:hover{
+    text-decoration: underline;
+}
+
+.load-more-comments-for-post-done{
+    color: #3399ff;
+}

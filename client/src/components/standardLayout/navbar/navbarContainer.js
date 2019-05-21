@@ -3,7 +3,7 @@ import NavbarComponent from './navbarComponent';
 
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.login.isAuthenticated
+    isAuthenticated: state.authReducer.login.isAuthenticated
   };
 };
 

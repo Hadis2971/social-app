@@ -2,13 +2,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import ForgotPasswordComponent from './forgotPasswordComponent';
-import { forgotPassword } from '../../../redux/actions/authActions/forogotPasswordActions/actionCreators';
+import { forgotPassword } from '../../../state/actions/authActions/forogotPasswordActions/actionCreators';
 
 const mapStateToProps = (state) => {
   return {
-    forgotPasswordEmailSendSuccess: state.forgotPasswordReducer.forgotPasswordEmailSendSuccess,
-    forgotPasswordEmailSendFail: state.forgotPasswordReducer.forgotPasswordEmailSendFail,
-    forgotPasswordEmailSendStart: state.forgotPasswordReducer.forgotPasswordEmailSendStart
+    forgotPasswordEmailSendSuccess: state.authReducer.forgotPassword.forgotPasswordEmailSendSuccess,
+    forgotPasswordEmailSendFail: state.authReducer.forgotPassword.forgotPasswordEmailSendFail,
+    forgotPasswordEmailSendStart: state.authReducer.forgotPassword.forgotPasswordEmailSendStart
   };
 };
 

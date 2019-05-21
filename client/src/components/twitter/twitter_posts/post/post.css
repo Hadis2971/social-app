@@ -53,7 +53,6 @@
     font-size: 1.3em;
     transform: rotateY(180deg);
     color: #3399ff;
-    cursor: pointer;
 }
 
 .count-likes{
@@ -74,7 +73,6 @@
     font-size: 1.3em;
     transform: rotateY(180deg);
     color: #ff4d4d;
-    cursor: pointer;
 }
 
 .count-dislikes{

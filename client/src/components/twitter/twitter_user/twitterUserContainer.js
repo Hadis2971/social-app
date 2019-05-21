@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getUsersProfilePicture } from '../../../redux/actions/profileImageActions/actionCreators';
-import { getAllFriendRequests, acceptFriendRequest, declineFriendRequest } from '../../../redux/actions/firendsActions/actionCreators';
+import { getUsersProfilePicture } from '../../../state/actions/profileImageActions/actionCreators';
+import { getAllFriendRequests, acceptFriendRequest, declineFriendRequest } from '../../../state/actions/firendsActions/actionCreators';
 import TwitterUserComponent from './twitterUserComponent';
 
 const mapStateToProps = (state) => {
   return {
-    firstName: state.login.firstName,
-    lastName: state.login.lastName,
-    username: state.login.username,
-    userEmail: state.login.userEmail,
+    firstName: state.authReducer.login.firstName,
+    lastName: state.authReducer.login.lastName,
+    username: state.authReducer.login.username,
+    userEmail: state.authReducer.login.userEmail,
     fetchingProfileImageSuccess: state.profileImage.fetchingSuccess,
     profilePirctureURL: state.profileImage.profilePirctureURL,
     friendRequests: state.friendsReducer.friendRequests,

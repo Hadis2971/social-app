@@ -19,14 +19,19 @@ class RefreshTokenHelpers {
     }
   }
 
-  async updateRefreshToken (refreshToken, userID) {
+  async updateRefreshToken (refreshToken, userID, next) {
     const expirationDate = moment(new Date()).add(1, 'days').format('YYYY-MM-DD HH:mm:ss');
-    const updateRefreshTokenResult = await refreshToken.update(
-      { expirationDate: expirationDate },
-      { where: { user: userID } }
-    );
-    if (updateRefreshTokenResult.length > 0) return true;
-    else return false;
+    try {
+      const updateRefreshTokenResult = await refreshToken.update(
+        { expirationDate: expirationDate },
+        { where: { user: userID } }
+      );
+      console.log('inside updateRefreshToken result', updateRefreshTokenResult);
+      if (updateRefreshTokenResult) return true;
+      else return false;
+    } catch (error) {
+      next(error);
+    }
   }
 
   async createRefreshToken (userID, refreshToken, next) {
@@ -41,7 +46,6 @@ class RefreshTokenHelpers {
         return true;
       }
     } catch (error) {
-      console.log('inside refresh token creator error', error);
       next(error);
     }
   }

@@ -17,11 +17,18 @@
     font-size: 1.3em;
     transform: rotateY(180deg);
     color: #3399ff;
+}
+
+.like-btn-req-profile{
     cursor: pointer;
 }
 
 .requested-profile-page-like-count{
     transform: rotateY(180deg);
+}
+
+.dislike-btn-req-profile{
+    cursor: pointer;
 }
 
 .icon-down-requested-profile-page {
@@ -34,7 +41,6 @@
     font-size: 1.3em;
     transform: rotateY(180deg);
     color: #ff4d4d;
-    cursor: pointer;
 }
 
 .requested-profile-page-dislike-count{

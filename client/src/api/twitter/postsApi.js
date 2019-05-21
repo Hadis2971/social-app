@@ -47,6 +47,27 @@ class PostsApi {
     }
   }
 
+  async loadMorePostsForRequestedProfile (user, offset) {
+    try {
+      instanceModifiers.tokenDecorator(this);
+      const loadMorePostsRequestedProfileResult = await Network.get(`${this.baseUrl}/requestedProfile/${user}/${offset}`, this.token, this.refreshtoken);
+      console.log('inside load more requested profile posts result', loadMorePostsRequestedProfileResult);
+      return loadMorePostsRequestedProfileResult;
+    } catch (error) {
+      console.log('inside load more posts requested profile error', error);
+    }
+  }
+
+  async loadMorePosts (user, offset) {
+    try {
+      instanceModifiers.tokenDecorator(this);
+      const loadMorePostsResult = await Network.get(`${this.baseUrl}/${user}/${offset}`, this.token, this.refreshtoken);
+      return loadMorePostsResult;
+    } catch (error) {
+      console.log('inside load more profile error', error);
+    }
+  }
+
   async createCommentForPost (post, comment) {
     const body = { post, comment };
     try {
@@ -55,6 +76,17 @@ class PostsApi {
       return createCommentResult;
     } catch (error) {
       console.log('inside create comment for post error', error);
+    }
+  }
+
+  async loadMoreCommentsForPost (post, offset) {
+    try {
+      instanceModifiers.tokenDecorator(this);
+      const loadMoreCommentsForPostResult = await Network.get(`${this.baseUrl}/comments/${post}/${offset}`, this.token, this.refreshtoken);
+      console.log('inside load more comments result', loadMoreCommentsForPostResult);
+      return loadMoreCommentsForPostResult;
+    } catch (error) {
+      console.log('inside load more comments error', error);
     }
   }
 }

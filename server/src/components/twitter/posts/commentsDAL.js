@@ -19,6 +19,22 @@ class AccessCommentsData {
       next(error);
     }
   }
+
+  async loadMoreCommentsForPost (req, res, next) {
+    const { post, offset } = req.params;
+    try {
+      const postCommentsResult = await PostComments.findAll({
+        where: {
+          post: post
+        },
+        offset: parseInt(offset),
+        limit: 5
+      });
+      res.json(postCommentsResult);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new AccessCommentsData();

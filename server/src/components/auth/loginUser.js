@@ -1,5 +1,5 @@
 import passport from 'passport';
-import { createAuthToken } from '../../helpers/authToken';
+import authServices from './authServices';
 export const loginUser = (req, res, next) => {
   passport.authenticate('local', { session: false }, (err, user, info) => {
     if (err || !user) {
@@ -11,18 +11,15 @@ export const loginUser = (req, res, next) => {
         next(err);
       }
 
-      const tokens = await createAuthToken({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        username: user.username,
-        userID: user.id,
-        userEmail: user.email,
-        profileImage: user.profileImage
-      }, next);
-      if (tokens) {
-        return res.json(tokens);
-      } else {
-        return res.json({ Error: 'Something Went Wrong Please Try Again' });
+      try {
+        const tokens = await authServices.createAuthTokens(user);
+        if (tokens) {
+          return res.json(tokens);
+        } else {
+          return res.json({ Error: 'Something Went Wrong Please Try Again' });
+        }
+      } catch (error) {
+        next(error);
       }
     });
   })(req, res);

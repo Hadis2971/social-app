@@ -1,45 +1,59 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Formik, Form, Field } from 'formik';
 import CropableImage from '../../../common/cropableImage';
 import Button from '../../../standardLayout/button';
 import Errors from '../../../common/errors';
 import UserMsg from '../../../common/userMsg';
-
-import { createUpdateObject, createFormData } from '../../../../helpers';
+import usersHelpers from '../../../../helpers/usersHelpers';
+import { createFormData } from '../../../../helpers';
 
 import './updateUserProfile.css';
 
-class UpdateUserInfo extends Component {
+class UpdateUserInfo extends PureComponent {
 
     constructor (props) {
       super(props);
       this.state = {
-        newImage: null
+        newImage: null,
+        imageUpdatedSuccess: false,
+        imageUpdatedFail: false
       };
     }
 
-    submitUpdateInfoForm = (newInfo) => {
+      submitUpdateInfoForm = async (newInfo) => {
         const { newImage } = this.state;
         const { updateUserInfo } = this.props;
         const file = (newImage) ? newImage : null;
-        const updateObject = createUpdateObject(newInfo, file);
+        const updateObject = usersHelpers.createUpdateUserObject(newInfo, file);
         const formData = createFormData(updateObject);
-        updateUserInfo(formData);
+        await updateUserInfo(formData);
+        
     }
 
     getNewProfileImage = (newImage) => {
-      this.setState({
-        newImage: newImage
-      });
+      if (newImage) {
+        this.setState({
+          newImage: newImage,
+          imageUpdatedSuccess: true,
+          imageUpdatedFail: false
+        });
+      } else {
+        this.setState({
+          newImage: newImage,
+          imageUpdatedSuccess: false,
+          imageUpdatedFail: true
+        });
+      }
+      
     } 
 
   render () {
+    const { imageUpdatedSuccess, imageUpdatedFail } = this.state;
     const { src, errors, updateUserInfoSuccess } = this.props;
     const { username, userEmail, firstName, lastName, fetchingSuccess } = this.props;
     const initialValues = {
       username, userEmail, firstName, lastName
     }
-    console.log('new Image', this.state.newImage);
     return (
       <Formik
         initialValues={initialValues}
@@ -79,7 +93,8 @@ class UpdateUserInfo extends Component {
                   />
               </div>
               <CropableImage src={src} getNewProfileImage={this.getNewProfileImage}/>
-              {errors && <Errors errors={errors} />}
+              {imageUpdatedSuccess && <UserMsg msgType='alert-success' message='Succeffully Addedd New Image' />}
+              {(errors && <Errors errors={errors} />) || (imageUpdatedFail && <Errors errors='Add New Image Failed Please Tyr Again!!!' />)}
               {updateUserInfoSuccess && <UserMsg msgType='alert-success' message='Profile Update Success' />}
               <Button
                 btnType='submit'

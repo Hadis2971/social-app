@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { baseUrlForApis } from '../../config';
-import { handelTokenRefresh } from '../../helpers';
+import authHelpers from '../../helpers/authHelpers';
 const axiosInstance = axios.create();
 
 axiosInstance.interceptors.response.use((response) => {
   if (response.data.newToken) {
-    return handelTokenRefresh(response.data.newToken, response);
+    return authHelpers.handelTokenRefresh(response.data.newToken, response);
   }
   return response;
 });

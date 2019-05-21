@@ -2,15 +2,15 @@ import experss from 'express';
 import exphbs from 'express-handlebars';
 import passport from 'passport';
 import path from 'path';
-import passportConfig from './config/passportConfig';
 import dbConnection from './database';
 import { port } from './config';
+import authServices from './components/auth/authServices';
 
 import authRouter from './components/auth/routes';
-import resetPasswordRouter from './components/auth/routes/resetPassword';
-import usersRouter from './components/users/routes/usersRoutes';
-import usersProfileRouter from './components/users/routes/profileRoutes';
-import usersFriendsRouter from './components/users/routes/friendsRoutes';
+import resetPasswordRouter from './components/resetPassword/routes';
+import usersRouter from './components/users/routes/users';
+import usersProfileRouter from './components/users/routes/profile';
+import usersFriendsRouter from './components/users/routes/friends';
 import twitterPostsRouter from './components/twitter/posts/routes';
 import postsCommentsRouter from './components/twitter/posts/routes/commets';
 import likesPostsRouter from './components/twitter/posts/routes/likes';
@@ -45,10 +45,10 @@ dbConnection.authenticate()
 
 // Setup passport config
 app.use(passport.initialize());
-(passportConfig(passport));
+authServices.loginUserConfig(passport);
 
-app.use('/auth/forgotPassword', resetPasswordRouter);
 app.use('/auth', authRouter);
+app.use('/forgotPassword', resetPasswordRouter);
 app.use('/users/profile', usersProfileRouter);
 app.use('/users/friends', usersFriendsRouter);
 app.use('/users', usersRouter);

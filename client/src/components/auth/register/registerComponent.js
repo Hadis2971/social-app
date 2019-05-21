@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { Formik, Form, Field } from "formik";
 import Button from "../../standardLayout/button";
 import Spinner from "../../standardLayout/spinner";
@@ -10,7 +10,7 @@ import registerValidation from "./validation";
 
 import "./register.css";
 
-class RegisterComponent extends Component {
+class RegisterComponent extends PureComponent {
 
     submitRegisterForm = async (user) => {
         const { registerUser, loginUser } = this.props.actions;

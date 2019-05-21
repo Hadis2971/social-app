@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import Comments from '../comments';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import LikeDislike from '../../../common/likeDislike';
 import './post.css';
 
 class Post extends PureComponent {
@@ -22,6 +21,7 @@ class Post extends PureComponent {
   };
 
   render () {
+    const { showComments } = this.state;
     const { profileImage,
       id,
       postText,
@@ -34,17 +34,11 @@ class Post extends PureComponent {
       comments,
       createCommentForPostSuccess,
       createCommnetForPost,
+      loadMoreCommentsForPost,
+      loadMoreCommentsForPostsFail,
+      loadMoreCommentsForPostsDone,
       userPost } = this.props;
-    let commentsComponent = (this.state.showComments)
-      ? <Comments 
-          userPost={userPost}
-          createCommentForPostSuccess={createCommentForPostSuccess} 
-          comments={comments} 
-          createCommnetForPost={createCommnetForPost} 
-          id={id} />
-      : null;
 
-    
     return (
       <div className='post-comment-section'>
         <div className='post-box'>
@@ -55,20 +49,32 @@ class Post extends PureComponent {
           <div className='user-information'>
             {firstName} {lastName}
           </div>
-          <div className='icon-up'>
-            <span ref={this.likeRef} className='count-likes'>{likes}</span>
-            <FontAwesomeIcon icon={faThumbsUp} onClick={() => likePost(true, id, this.likeRef.current, this.dislikeRef.current)} />
-          </div>
-          <div className='icon-down'>
-            <span ref={this.dislikeRef} className='count-dislikes'>{dislikes}</span>
-            <FontAwesomeIcon icon={faThumbsDown} onClick={() => dislikePost(false, id, this.likeRef.current, this.dislikeRef.current)} />
-          </div>
+          
+          <LikeDislike 
+          likeRef={this.likeRef}
+          likes={likes}
+          likePost={likePost}
+          dislikeRef={this.dislikeRef}
+          dislikes={dislikes}
+          dislikePost={dislikePost}
+          id={id}
+          />
         </div>
         <p onClick={this.showHideComments} className='text-center show-comments'>{(this.state.showComments) ? 'Hide Comments' : 'Show Comments'}</p>
-        {commentsComponent}
+        {showComments && 
+        <Comments 
+        loadMoreCommentsForPost={loadMoreCommentsForPost}
+        loadMoreCommentsForPostsFail={loadMoreCommentsForPostsFail}
+        loadMoreCommentsForPostsDone={loadMoreCommentsForPostsDone}
+        userPost={userPost}
+        createCommentForPostSuccess={createCommentForPostSuccess} 
+        comments={comments} 
+        createCommnetForPost={createCommnetForPost} 
+        id={id} />
+        }
       </div>
     );
   }
 }
 
-export default Post;
+export default Post; 
