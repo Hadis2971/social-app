@@ -61,9 +61,9 @@ class CropableImage extends Component {
   }
 
   sendBackNewProfileImage = () => {
+    if (!newImageFile) return;
     const { getNewProfileImage } = this.props;
     const { newImageFile } = this.state;  
-    if (!newImageFile) return;
     getNewProfileImage(newImageFile);
   }
 

@@ -4,19 +4,19 @@ import passport from 'passport';
 import path from 'path';
 import dbConnection from './database';
 import { port } from './config';
-import authServices from './components/auth/authServices';
+import authServices from './app/auth/authServices';
 
-import authRouter from './components/auth/routes';
-import resetPasswordRouter from './components/resetPassword/routes';
-import usersRouter from './components/users/routes/users';
-import usersProfileRouter from './components/users/routes/profile';
-import usersFriendsRouter from './components/users/routes/friends';
-import twitterPostsRouter from './components/twitter/posts/routes';
-import postsCommentsRouter from './components/twitter/posts/routes/commets';
-import likesPostsRouter from './components/twitter/posts/routes/likes';
-import dislikesPostsRouter from './components/twitter/posts/routes/dislikes';
-import clientErrorHandler from './components/error_handling/clientError';
-import genericErrorHandler from './components/error_handling/serverError';
+import authRouter from './app/auth/routes';
+import resetPasswordRouter from './app/resetPassword/routes';
+import usersRouter from './app/users/routes/users';
+import usersProfileRouter from './app/users/routes/profile';
+import usersFriendsRouter from './app/users/routes/friends';
+import twitterPostsRouter from './app/twitter/posts/routes';
+import postsCommentsRouter from './app/twitter/posts/routes/commets';
+import likesPostsRouter from './app/twitter/posts/routes/likes';
+import dislikesPostsRouter from './app/twitter/posts/routes/dislikes';
+import clientErrorHandler from './app/error_handling/clientError';
+import genericErrorHandler from './app/error_handling/serverError';
 
 const app = experss();
 
