@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ReactCrop from 'react-image-crop'
+import ReactCrop from 'react-image-crop';
+import FileInputField from '../fileInputField';
 import ImageControls from './imageControls';
 import cropableImageUtils from './utils';
 
@@ -92,18 +93,14 @@ class CropableImage extends Component {
        onImageLoaded={this.handleImageLoaded}
        onComplete = {this.handleOnCropComplete}
        onChange={this.handleOnCropChange}/>
-      }      
-      <div className={imgSrc ? "custom-file my-3" : "custom-file mb-3"}>
-          <input 
-              type="file"
-              ref={this.imageFileRef} 
-              onChange={this.onSelectFile}
-              className="custom-file-input" 
-              id="cropableImage" 
-          />
-          <label className="custom-file-label" htmlFor="cropableImage">Choose New Profile Image...</label>
-          <div className="invalid-feedback">Invalid File Selected Please Try Different One</div>
-      </div>
+      }  
+      <FileInputField 
+      fileInputBoxClassname={imgSrc ? "custom-file my-3" : "custom-file mb-3"}
+      fileRef={this.imageFileRef}
+      changeHandler={this.onSelectFile}
+      id="cropableImage"
+      labelText='Choose New Profile Image...'
+      />    
       <ImageControls 
       sendBackNewProfileImage={this.sendBackNewProfileImage}
       handleClearToDefault={this.handleClearToDefault}
