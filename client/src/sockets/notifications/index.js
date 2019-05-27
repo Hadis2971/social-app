@@ -3,7 +3,6 @@ import SocketIO from '../socketIO';
 class Notifications extends SocketIO {
   constructor () {
     super();
-    this.twitterPath = '/twitter/posts';
     this.authLoginPath = '/auth/login';
   }
 

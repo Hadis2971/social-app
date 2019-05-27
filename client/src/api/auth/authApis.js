@@ -23,10 +23,8 @@ class AuthApis {
   }
 
   async logoutUser (user) {
-    console.log('lgout api user', user);
     try {
       const logoutUserResult = await Network.post(`${this.baseUrl}/logout`, null, null, { userID: user });
-      console.log('lgout api logoutUserResult', logoutUserResult);
       return logoutUserResult;
     } catch (error) {
       console.log('inside auth apis logout user error', error);

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import socketIOClient from 'socket.io-client';
 import Spinner from '../../standardLayout/spinner';
 import Errors from '../../common/errors';
 import UserMsg from '../../common/userMsg';
@@ -13,9 +12,6 @@ import './twitterUser.css';
 
 class TwitterUserComponent extends Component {
   async componentDidMount () {
-    //const socket = socketIOClient('http://localhost:5000/notifications');
-    //socket.on('connection', () => console.log('connected'));
-    //socket.emit('dislikePostNotify');
     const { getUsersProfilePicture, getAllFriendRequests } = this.props.actions;
     await getUsersProfilePicture();
     await getAllFriendRequests();

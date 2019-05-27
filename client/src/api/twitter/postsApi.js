@@ -51,7 +51,6 @@ class PostsApi {
     try {
       instanceModifiers.tokenDecorator(this);
       const loadMorePostsRequestedProfileResult = await Network.get(`${this.baseUrl}/requestedProfile/${user}/${offset}`, this.token, this.refreshtoken);
-      console.log('inside load more requested profile posts result', loadMorePostsRequestedProfileResult);
       return loadMorePostsRequestedProfileResult;
     } catch (error) {
       console.log('inside load more posts requested profile error', error);
@@ -83,7 +82,6 @@ class PostsApi {
     try {
       instanceModifiers.tokenDecorator(this);
       const loadMoreCommentsForPostResult = await Network.get(`${this.baseUrl}/comments/${post}/${offset}`, this.token, this.refreshtoken);
-      console.log('inside load more comments result', loadMoreCommentsForPostResult);
       return loadMoreCommentsForPostResult;
     } catch (error) {
       console.log('inside load more comments error', error);
