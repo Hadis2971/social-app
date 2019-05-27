@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import socketIOClient from 'socket.io-client';
 import Spinner from '../../standardLayout/spinner';
 import Errors from '../../common/errors';
 import UserMsg from '../../common/userMsg';
@@ -10,8 +11,11 @@ import { turnObjectIntoArray } from '../../../helpers';
 
 import './twitterUser.css';
 
-class TwitterComponent extends Component {
+class TwitterUserComponent extends Component {
   async componentDidMount () {
+    //const socket = socketIOClient('http://localhost:5000/notifications');
+    //socket.on('connection', () => console.log('connected'));
+    //socket.emit('dislikePostNotify');
     const { getUsersProfilePicture, getAllFriendRequests } = this.props.actions;
     await getUsersProfilePicture();
     await getAllFriendRequests();
@@ -59,4 +63,4 @@ class TwitterComponent extends Component {
   }
 }
 
-export default TwitterComponent;
+export default TwitterUserComponent;

@@ -23,6 +23,7 @@ class Post extends PureComponent {
   render () {
     const { showComments } = this.state;
     const { profileImage,
+      currentUser,
       id,
       postText,
       firstName,
@@ -38,7 +39,6 @@ class Post extends PureComponent {
       loadMoreCommentsForPostsFail,
       loadMoreCommentsForPostsDone,
       userPost } = this.props;
-
     return (
       <div className='post-comment-section'>
         <div className='post-box'>
@@ -57,6 +57,8 @@ class Post extends PureComponent {
           dislikeRef={this.dislikeRef}
           dislikes={dislikes}
           dislikePost={dislikePost}
+          userToNotify={userPost.user}
+          currentUser={currentUser}
           id={id}
           />
         </div>
@@ -70,6 +72,8 @@ class Post extends PureComponent {
         createCommentForPostSuccess={createCommentForPostSuccess} 
         comments={comments} 
         createCommnetForPost={createCommnetForPost} 
+        userToNotify={userPost.user}
+        currentUser={currentUser}
         id={id} />
         }
       </div>

@@ -1,8 +1,9 @@
 import * as types from './actionTypes';
+import authApis from '../../../../api/auth/authApis';
 import usersHelpers from '../../../../helpers/usersHelpers';
-export const logoutUser = () => {
+
+export const logoutUser = (userID) => (dispatch) => {
+  authApis.logoutUser(userID);
   usersHelpers.removeUserInfoFromLocalStorage();
-  return ({
-    type: types.LOGOUT_USER
-  });
+  dispatch({ type: types.LOGOUT_USER });
 };

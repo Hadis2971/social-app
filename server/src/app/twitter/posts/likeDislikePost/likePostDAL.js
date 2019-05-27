@@ -1,6 +1,7 @@
 import LikeDislike from './likeDislike';
 import Posts from '../../../../database/models/Posts';
 import UsersPostsLikes from '../../../../database/models/UsersPostsLikes';
+import Notifications from '../../../../database/models/Notifications';
 import Sequelize from 'sequelize';
 const Op = Sequelize.Op;
 

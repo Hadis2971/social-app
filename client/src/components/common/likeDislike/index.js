@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 class LikeDislike extends PureComponent {
   render () {
-    const { likeRef, likes, likePost, dislikeRef, dislikes, dislikePost, id } = this.props;
+    const { likeRef, likes, likePost, dislikeRef, dislikes, dislikePost, id, userToNotify, currentUser } = this.props;
     return (
       <div>
         <div className='icon-up'>
@@ -11,14 +11,14 @@ class LikeDislike extends PureComponent {
           <FontAwesomeIcon
             className='like-btn'
             icon={faThumbsUp}
-            onClick={() => likePost(true, id, likeRef.current, dislikeRef.current)} />
+            onClick={() => likePost(true, id, likeRef.current, dislikeRef.current, userToNotify, currentUser)} />
         </div>
         <div className='icon-down'>
           <span ref={dislikeRef} className='count-dislikes'>{dislikes}</span>
           <FontAwesomeIcon
             className='dislike-btn'
             icon={faThumbsDown}
-            onClick={() => dislikePost(false, id, likeRef.current, dislikeRef.current)} />
+            onClick={() => dislikePost(false, id, likeRef.current, dislikeRef.current, userToNotify, currentUser)} />
         </div>
       </div>
     );

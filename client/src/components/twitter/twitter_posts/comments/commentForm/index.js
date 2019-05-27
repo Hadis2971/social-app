@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import notifications from '../../../../../sockets/notifications';
 class CommentForm extends PureComponent {
   constructor (props) {
     super(props);
@@ -8,12 +9,13 @@ class CommentForm extends PureComponent {
   }
 
   submitCommentHandler = async (evt) => {
-    const { createCommnetForPost, id, addComment } = this.props;
+    const { createCommnetForPost, id, addComment, user, currentUser } = this.props;
     const { comment } = this.state;
     evt.preventDefault();
     if (!comment) return;
     const result = await createCommnetForPost(id, comment);
     if (result.data.id) addComment(result.data);
+    notifications.userCommentNotify(user, currentUser);
     this.setState({comment: ''});
   };
 

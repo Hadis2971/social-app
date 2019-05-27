@@ -19,9 +19,9 @@ const Routes = (props) => {
       <Switch>
         <Route path='/register' component={RegisterContainer} />
         <Route path='/login' component={LoginContainer} />
-        <Route path='/logout' component={Logout} />
         <Route path='/forogtPasswordUserEmal' component={ForgotPasswordContainer} />
         <Route path='/requestedProfile' component={RequestedProfilePageContainer} />
+        <Route path='/logout' component={Logout} />
         <PrivateRoute exact path='/profile' component={ProfilePageContainer} />
         <PrivateRoute exact path='/' component={TwitterUserContainer} />
         <PrivateRoute exact path='/tweets' component={TwitterPostsContainer} />

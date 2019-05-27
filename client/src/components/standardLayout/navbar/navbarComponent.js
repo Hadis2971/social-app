@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import Notifications from '../../users/notifications';
 import './navbar.css';
 
 class NavbarComponent extends Component {
@@ -25,6 +25,9 @@ class NavbarComponent extends Component {
           </li>}
         </ul>
         <ul className='navbar-nav ml-auto'>
+          {isAuthenticated && <li className='nav-item'>
+            <Notifications />
+          </li>}
           {isAuthenticated && <li className='nav-item'>
             <Link className='nav-link link-style' to='/profile'>Your Profile</Link>
           </li>}

@@ -21,7 +21,7 @@ class RequestedProfilePageComponent extends PureComponent {
 
   render () {
     const { user } = this.props.location.state;
-    const { getRequestedProfileStart, loadMoreRequsetdProfilePostsStart, loadMoreRequsetdProfilePostsDone, loadMoreRequsetdProfilePostsFail } = this.props;
+    const { getRequestedProfileStart, loadMoreRequsetdProfilePostsStart, loadMoreRequsetdProfilePostsDone, loadMoreRequsetdProfilePostsFail, currentUser } = this.props;
     let profileImage = null; let firstName = null; let lastName = null; let username = null; let posts = [];
     const { likePost, dislikePost, loadMorePostsForRequestedProfile } = this.props.actions;
     if (this.props.user) {
@@ -44,6 +44,7 @@ class RequestedProfilePageComponent extends PureComponent {
               loadMoreRequsetdProfilePostsDone={loadMoreRequsetdProfilePostsDone}
               loadMoreRequsetdProfilePostsFail={loadMoreRequsetdProfilePostsFail}
               loadMorePostsForRequestedProfile={loadMorePostsForRequestedProfile}
+              currentUser={currentUser}
               user={user}
               posts={posts}
               likePost={likePost}

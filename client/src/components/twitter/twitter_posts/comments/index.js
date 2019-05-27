@@ -63,7 +63,7 @@ class Comments extends Component {
 
   render () {
     const { commentsForPost, offset, doneLoadingComments } = this.state;
-    const { createCommnetForPost, id, createCommentForPostSuccess, userPost, loadMoreCommentsForPostsFail } = this.props;
+    const { createCommnetForPost, id, createCommentForPostSuccess, userPost, loadMoreCommentsForPostsFail, userToNotify, currentUser } = this.props;
     let commentsArr = null;
     if (userPost.comments) {
       commentsArr = commentsForPost.map(comment => {
@@ -89,6 +89,9 @@ class Comments extends Component {
         <CommentForm
           createCommnetForPost={createCommnetForPost}
           id={id}
+          user={userPost.user}
+          userToNotify={userToNotify}
+          currentUser={currentUser}
           createCommentForPostSuccess={createCommentForPostSuccess}
           addComment={this.addComment}
         />

@@ -3,8 +3,9 @@ import exphbs from 'express-handlebars';
 import passport from 'passport';
 import path from 'path';
 import dbConnection from './database';
-import { port } from './config';
+import { port, secretOrKeyRefreshToken } from './config';
 import authServices from './app/auth/authServices';
+import notificationsSocket from './socekts/notifications';
 
 import authRouter from './app/auth/routes';
 import resetPasswordRouter from './app/resetPassword/routes';
@@ -19,6 +20,9 @@ import clientErrorHandler from './app/error_handling/clientError';
 import genericErrorHandler from './app/error_handling/serverError';
 
 const app = experss();
+const http = require('http');
+const server = http.createServer(app);
+const io = require('socket.io')(server);
 
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -47,6 +51,17 @@ dbConnection.authenticate()
 app.use(passport.initialize());
 authServices.loginUserConfig(passport);
 
+io.of('/').on('connection', (socket) => {
+  socket.on('join', (userID) => {
+    socket.join(userID.userID);
+  });
+  notificationsSocket.likeDislikeCommentNotify(socket, io);
+});
+
+io.of('/auth/login').on('connection', (socket) => {
+  notificationsSocket.userLoggedInNotify(socket);
+});
+
 app.use('/auth', authRouter);
 app.use('/forgotPassword', resetPasswordRouter);
 app.use('/users/profile', usersProfileRouter);
@@ -59,4 +74,4 @@ app.use('/twitter/posts', twitterPostsRouter);
 app.use(clientErrorHandler);
 app.use(genericErrorHandler);
 
-app.listen(port, console.log(`Server Started On Port ${port}`));
+server.listen(port, console.log(`Server Started On Port ${port}`));

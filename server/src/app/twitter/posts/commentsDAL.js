@@ -1,5 +1,5 @@
 import PostComments from '../../../database/models/PostComments';
-
+import Notifications from '../../../database/models/Notifications';
 class AccessCommentsData {
   async createComment (req, res, next) {
     const { userID, profileImage, firstName, lastName } = req.decoded;

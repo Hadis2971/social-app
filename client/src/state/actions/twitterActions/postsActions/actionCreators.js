@@ -35,9 +35,11 @@ export const getPosts = () => async (dispatch) => {
   }
 };
 
-export const likePost = (like = true, id, element1, element2) => async (dispatch) => {
+export const likePost = (like = true, id, element1, element2, userToNotify, currentUser) => async (dispatch) => {
   const likePostResult = await postsApi.likePost(like, id);
-  if (likePostResult.data.like) postsHelpers.updateLikesDislikes(element1, element2, likePostResult.data);
+  if (likePostResult.data.like) {
+    postsHelpers.updateLikesDislikes(element1, element2, likePostResult.data, userToNotify, currentUser);
+  }
   if ((!likePostResult) || likePostResult.data.Error) {
     dispatch({
       type: types.LIKE_POST_FAIL,
@@ -53,9 +55,11 @@ export const likePost = (like = true, id, element1, element2) => async (dispatch
   }
 };
 
-export const dislikePost = (like = false, id, element1, element2) => async (dispatch) => {
+export const dislikePost = (like = false, id, element1, element2, userToNotify, currentUser) => async (dispatch) => {
   const dislikePostResult = await postsApi.dislikePost(like, id);
-  if (dislikePostResult.data.dislike) postsHelpers.updateLikesDislikes(element1, element2, dislikePostResult.data);
+  if (dislikePostResult.data.dislike) {
+    postsHelpers.updateLikesDislikes(element1, element2, dislikePostResult.data, userToNotify, currentUser);
+  }
   if ((!dislikePostResult) || dislikePostResult.data.Error) {
     dispatch({
       type: types.DISLIKE_POST_FAIL,

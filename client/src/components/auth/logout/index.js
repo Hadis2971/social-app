@@ -4,13 +4,15 @@ import { logoutUser } from '../../../state/actions/authActions/logoutActions/act
 import { Redirect } from 'react-router-dom';
 
 const Logout = (props) => {
-  logoutUser();
-  return <Redirect to='/' />;
+  const userID = (localStorage.getItem('userID') - 0);
+  const { logoutUser } = props;
+  logoutUser(userID);
+  return <Redirect to='/login' />;
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    logoutUser: dispatch(logoutUser())
+    logoutUser: (userID) => dispatch(logoutUser(userID))
   };
 };
 

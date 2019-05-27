@@ -10,7 +10,7 @@ class RequestedProfilePost extends PureComponent {
   }
 
   render () {
-    const { postText, likes, dislikes, id } = this.props;
+    const { postText, likes, dislikes, id, user, currentUser } = this.props;
     const { likePost, dislikePost } = this.props;
     return (
       <div className='requested-profile-post'>
@@ -22,6 +22,8 @@ class RequestedProfilePost extends PureComponent {
           dislikeRef={this.dislikeRefRequestedProfile}
           dislikes={dislikes}
           dislikePost={dislikePost}
+          currentUser={currentUser}
+          userToNotify={user}
           id={id}
         />
       </div>

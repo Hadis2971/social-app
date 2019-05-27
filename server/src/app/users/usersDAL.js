@@ -1,5 +1,6 @@
 import Users from '../../database/models/Users';
 import Friends from '../../database/models/Friends';
+import LoggedInUsers from '../../database/models/LoggedInUsers';
 import usersServices from './usersServices';
 import usersHelpers from '../../helpers/usersHelpers';
 import friendsHelpers from '../../helpers/friedsHelpers';
@@ -111,6 +112,19 @@ class AccessUsersData {
     } catch (error) {
       console.log('inside get requested user profile error', error);
       next(error);
+    }
+  }
+
+  async checkIfUserIsLoggedIn (userID) {
+    const user = await LoggedInUsers.findOne({
+      where: {
+        user: (userID - 0)
+      }
+    });
+    if (user) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

@@ -1,0 +1,35 @@
+import SocketIO from '../socketIO';
+
+class Notifications extends SocketIO {
+  constructor () {
+    super();
+    this.twitterPath = '/twitter/posts';
+    this.authLoginPath = '/auth/login';
+  }
+
+  userLoggedInNotify (userID) {
+    return this.socket(this.authLoginPath).emit('userLogin', { userID });
+  }
+
+  userLikeNotify (userID, currentUser) {
+    return this.socket('').emit('userLike', { userID, currentUser });
+  }
+
+  likePostNotify () {
+    return this.socket('').on('postLiked', () => console.log('your post was liked'));
+  }
+
+  userDislikeNotify (userID, currentUser) {
+    return this.socket('').emit('userDislike', { userID, currentUser });
+  }
+
+  userCommentNotify (userID, currentUser) {
+    return this.socket('').emit('userComment', { userID, currentUser });
+  }
+
+  userDisconnect () {
+    return this.socket(this.authLoginPath).emit('disconnect');
+  }
+}
+
+export default new Notifications();

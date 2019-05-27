@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
   return {
+    currentUser: state.authReducer.login.userID,
     usersPosts: state.twitterPosts.usersPosts,
     getPostsStart: state.twitterPosts.getPostsStart,
     loadMorePostsFail: state.twitterPosts.loadMorePostsFail,

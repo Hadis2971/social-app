@@ -3,6 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import Post from './post';
 import Errors from '../../common/errors';
 import LoadMorePosts from '../../common/loadMorePosts';
+import Notifications from '../../../sockets/notifications';
 import Spinner from '../../standardLayout/spinner';
 import Button from '../../standardLayout/button';
 import { getDataFromLocalStorage } from '../../../helpers';
@@ -35,11 +36,12 @@ class TwitterPostsComponent extends Component {
   }
 
   setUsersPosts = (usersPosts) => {
-    const { createCommentForPostSuccess, loadMoreCommentsForPostsFail, loadMoreCommentsForPostsDone } = this.props;
+    const { createCommentForPostSuccess, loadMoreCommentsForPostsFail, loadMoreCommentsForPostsDone, currentUser } = this.props;
     const { likePost, dislikePost, createCommnetForPost, loadMoreCommentsForPost } = this.props.actions;
     this.setState({
       usersPostsList: usersPosts.map(userPost => {
         return <Post 
+          currentUser={currentUser}
           loadMoreCommentsForPost={loadMoreCommentsForPost}
           loadMoreCommentsForPostsFail={loadMoreCommentsForPostsFail}
           loadMoreCommentsForPostsDone={loadMoreCommentsForPostsDone}
@@ -67,7 +69,6 @@ class TwitterPostsComponent extends Component {
     const newPost = 
     Object.assign({post: post.post}, 
     getDataFromLocalStorage({'profileImage': null, 'firstName': null, 'lastName': null}));
-    console.log(newPost);
     postNewPost(newPost);
     resetForm();
   };
@@ -90,7 +91,7 @@ class TwitterPostsComponent extends Component {
 
   render () {
     const { usersPostsList, errors } = this.state;
-    const { getPostsStart, loadMorePostsDone, loadMorePostsFail } = this.props;
+    const { getPostsStart, loadMorePostsDone, loadMorePostsFail, usersPosts } = this.props;
     return (
         <div className='col-lg-7'>
         {getPostsStart && <Spinner />}

@@ -6,6 +6,7 @@ import RequestedProfilePageComponent from './requestedProfilePageComponent';
 
 const mapStateToProps = (state) => {
   return {
+    currentUser: state.authReducer.login.userID,
     user: state.usersReducer.usersProfilePage.user,
     posts: state.usersReducer.usersProfilePage.posts,
     getRequestedProfileStart: state.usersReducer.usersProfilePage.getRequestedProfileStart,

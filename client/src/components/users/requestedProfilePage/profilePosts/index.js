@@ -32,12 +32,14 @@ class RequestedProfilePosts extends PureComponent {
   };
 
   setPosts = (posts) => {
-    const { likePost, dislikePost } = this.props;
+    const { likePost, dislikePost, user, currentUser } = this.props;
     this.setState({
       postsList: posts.map(post => {
         return <RequestedProfilePost
           key={post.id}
           id={post.id}
+          user={user}
+          currentUser={currentUser}
           postText={post.postText}
           likes={post.likes}
           dislikes={post.dislikes}

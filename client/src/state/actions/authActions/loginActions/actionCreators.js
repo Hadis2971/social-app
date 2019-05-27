@@ -2,6 +2,7 @@ import * as types from './actionTypes';
 import authHelpers from '../../../../helpers/authHelpers';
 import usersHelpers from '../../../../helpers/usersHelpers';
 import authApis from '../../../../api/auth/authApis';
+import notifications from '../../../../sockets/notifications';
 
 export const loginUser = (user) => async (dispatch) => {
   dispatch({ type: types.LOGIN_START });
@@ -38,5 +39,7 @@ export const loginUser = (user) => async (dispatch) => {
       errors: null,
       authenticatingStart: false
     });
+    const { userID } = userData;
+    notifications.userLoggedInNotify(userID);
   }
 };
