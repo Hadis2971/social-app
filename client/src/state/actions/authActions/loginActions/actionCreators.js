@@ -39,7 +39,12 @@ export const loginUser = (user) => async (dispatch) => {
       errors: null,
       authenticatingStart: false
     });
-    const { userID } = userData;
-    notifications.userLoggedInNotify(userID);
+    const { userID, username, profileImage } = userData;
+    const user = {
+      userID,
+      username,
+      profileImage
+    };
+    notifications.userLoggedInNotify(user);
   }
 };

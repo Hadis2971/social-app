@@ -6,8 +6,8 @@ class Notifications extends SocketIO {
     this.authLoginPath = '/auth/login';
   }
 
-  userLoggedInNotify (userID) {
-    return this.socket(this.authLoginPath).emit('userLogin', { userID });
+  userLoggedInNotify (user) {
+    return this.socket(this.authLoginPath).emit('userLogin', user);
   }
 
   userLikeNotify (userID, currentUser) {

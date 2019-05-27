@@ -9,6 +9,7 @@ import Logout from '../auth/logout';
 import ProfilePageContainer from '../users/profilePage/profilePageContainer';
 import TwitterUserContainer from '../twitter/twitter_user/twitterUserContainer';
 import TwitterPostsContainer from '../twitter/twitter_posts/twitterPostsContainer';
+import TwitterPostsAndChat from '../twitter';
 import ForgotPasswordContainer from '../auth/forgotPassword/forgotPasswordContainer';
 import RequestedProfilePageContainer from '../users/requestedProfilePage/requestedProfilePageContainer';
 
@@ -24,7 +25,7 @@ const Routes = (props) => {
         <Route path='/logout' component={Logout} />
         <PrivateRoute exact path='/profile' component={ProfilePageContainer} />
         <PrivateRoute exact path='/' component={TwitterUserContainer} />
-        <PrivateRoute exact path='/tweets' component={TwitterPostsContainer} />
+        <PrivateRoute exact path='/tweets' component={TwitterPostsAndChat} />
       </Switch>
     </Router>
   );

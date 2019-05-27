@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import Routes from './components/routes';
 import socketIOClient from 'socket.io-client';
 import Noty from 'noty';
-import notifications from './sockets/notifications';
 
 import '../node_modules/noty/lib/noty.css';
 import '../node_modules/noty/lib/themes/mint.css';

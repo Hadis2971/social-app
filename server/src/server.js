@@ -12,6 +12,7 @@ import resetPasswordRouter from './app/resetPassword/routes';
 import usersRouter from './app/users/routes/users';
 import usersProfileRouter from './app/users/routes/profile';
 import usersFriendsRouter from './app/users/routes/friends';
+import chatRouter from './app/users/routes/chat';
 import twitterPostsRouter from './app/twitter/posts/routes';
 import postsCommentsRouter from './app/twitter/posts/routes/commets';
 import likesPostsRouter from './app/twitter/posts/routes/likes';
@@ -65,6 +66,7 @@ io.of('/auth/login').on('connection', (socket) => {
 app.use('/auth', authRouter);
 app.use('/forgotPassword', resetPasswordRouter);
 app.use('/users/profile', usersProfileRouter);
+app.use('/users/friends/chat', chatRouter);
 app.use('/users/friends', usersFriendsRouter);
 app.use('/users', usersRouter);
 app.use('/twitter/posts/likes', likesPostsRouter);

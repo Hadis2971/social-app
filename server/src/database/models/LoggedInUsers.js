@@ -9,6 +9,12 @@ const LoggedInUsers = dbConnection.define('loggedInUsers', {
     type: 'TIMESTAMP',
     default: Sequelize.NOW
   },
+  username: {
+    type: Sequelize.STRING
+  },
+  profileImage: {
+    type: Sequelize.STRING
+  },
   updatedAt: {
     type: 'TIMESTAMP',
     default: Sequelize.NOW

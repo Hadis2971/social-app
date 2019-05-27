@@ -72,6 +72,31 @@ const friendsReducer = (state = initialState, action) => {
         confirmFriendsError: action.errors
       });
     }
+    case (types.GET_ONLINE_FRIENDS_START): {
+      return updateStateObject(state, {
+        ...state,
+        getOnlineFriendsStart: true,
+        getOnlineFriendsSuccess: false,
+        getOnlineFriendsFail: false
+      });
+    }
+    case (types.GET_ONLINE_FRIENDS_SUCCESS): {
+      return updateStateObject(state, {
+        ...state,
+        onlineFriends: [...action.onlineFriends],
+        getOnlineFriendsStart: false,
+        getOnlineFriendsSuccess: true,
+        getOnlineFriendsFail: false
+      });
+    }
+    case (types.GET_ONLINE_FRIENDS_FAIL): {
+      return updateStateObject(state, {
+        ...state,
+        getOnlineFriendsStart: false,
+        getOnlineFriendsSuccess: false,
+        getOnlineFriendsFail: true
+      });
+    }
     default: return state;
   }
 };

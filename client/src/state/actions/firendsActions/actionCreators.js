@@ -80,3 +80,18 @@ export const declineFriendRequest = (id, element) => async (dispatch) => {
     });
   }
 };
+
+export const getOnlineFriends = (userID) => async (dispatch) => {
+  dispatch({ type: types.GET_ONLINE_FRIENDS_START });
+  const getOnlineFriendsResult = await friendsApi.getOnlineFriends(userID);
+  if ((!getOnlineFriendsResult) || getOnlineFriendsResult.data.Error) {
+    dispatch({
+      type: types.GET_ONLINE_FRIENDS_FAIL
+    });
+  } else {
+    dispatch({
+      type: types.GET_ONLINE_FRIENDS_SUCCESS,
+      onlineFriends: getOnlineFriendsResult.data
+    });
+  }
+};

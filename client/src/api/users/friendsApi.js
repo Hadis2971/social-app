@@ -56,6 +56,17 @@ class FriendsApi {
       console.log('inside decline friend request error', error);
     }
   }
+
+  async getOnlineFriends (userID) {
+    try {
+      instanceModifiers.tokenDecorator(this);
+      const getOnlineFriendsResult = await Network.get(`${this.baseUrl}/friends/chat/${userID}`, this.token, this.refreshtoken);
+      console.log('get online friends result', getOnlineFriendsResult);
+      return getOnlineFriendsResult;
+    } catch (error) {
+      console.log('inside get online friends error', error);
+    }
+  }
 }
 
 export default new FriendsApi();

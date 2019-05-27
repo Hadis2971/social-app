@@ -1,0 +1,23 @@
+.online-friend-box{
+    position: relative;
+    z-index: 200;
+    box-sizing: border-box;
+    width: 90%;
+    margin: 2% auto;
+    padding: 2.1%;
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.online-friend-box{
+    display: flex;
+    align-items:center;
+}
+
+.info-online-friend{
+    margin-left: 3%;
+}
+
+.online-friend-image{
+    width: 3em;
+}

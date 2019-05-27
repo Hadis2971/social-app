@@ -1,5 +1,7 @@
 import Users from '../../database/models/Users';
+import Friends from '../../database/models/Friends';
 import FriendRequests from '../../database/models/FriendRequests';
+import LoggedInUsers from '../../database/models/LoggedInUsers';
 import usersHelpers from '../../helpers/usersHelpers';
 import friendsHelpers from '../../helpers/friedsHelpers';
 import Sequelize from 'sequelize';
@@ -70,6 +72,41 @@ class AccessFriendsData {
       } catch (error) {
         next(error);
       }
+    }
+  }
+
+  async getOnlineFriends (req, res, next) {
+    const { userID } = req.params;
+    try {
+      const friends = await Friends.findAll({
+        where: {
+          [Op.or]: [
+            {
+              friendOne: userID
+            },
+            {
+              friendTwo: userID
+            }
+          ]
+        }
+      });
+      const friendsArr = friendsHelpers.getFriendsID(friends, null);
+      const onlineFriends = await LoggedInUsers.findAll({
+        where: {
+          [Op.and]: [
+            {
+              user: { [Op.not]: userID }
+            },
+            {
+              user: { [Op.in]: friendsArr }
+            }
+          ]
+        }
+      });
+      res.json(onlineFriends);
+    } catch (error) {
+      console.log('find friends error', error);
+      next(error);
     }
   }
 }

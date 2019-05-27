@@ -7,7 +7,11 @@ const initialState = {
   confirmFriendsError: null,
   addNewFriendSuccess: false,
   confrimFriendRequestSuccess: false,
-  confrimFriendRequestFail: false
+  confrimFriendRequestFail: false,
+  getOnlineFriendsStart: false,
+  getOnlineFriendsSuccess: false,
+  getOnlineFriendsFail: false,
+  onlineFriends: []
 };
 
 export default initialState;

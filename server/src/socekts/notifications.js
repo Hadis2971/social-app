@@ -3,10 +3,12 @@ import usersDAL from '../app/users/usersDAL';
 import Users from '../database/models/Users';
 class NotificationSocket {
   userLoggedInNotify (socket) {
-    socket.on('userLogin', (userID) => {
-      socket.join(userID.userID);
+    socket.on('userLogin', (user) => {
+      socket.join(user.userID);
       LoggedInUsers.create({
-        user: userID.userID
+        user: user.userID,
+        username: user.username,
+        profileImage: user.profileImage
       });
     });
   }

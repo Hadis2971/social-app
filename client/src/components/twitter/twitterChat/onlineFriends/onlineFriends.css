@@ -1,0 +1,30 @@
+.online-friends-box{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3em;
+    cursor: pointer;
+}
+
+.online-friends-box-closed{
+    background-color: #3399ff;
+    height: 3em;
+}
+
+.online-friends-box-opened{
+    height: auto;
+    min-height: 23em;
+    background-color: #FFF;
+    border: 0.07em solid #3399ff;
+}
+
+.open-close-hdr-blue{
+    color: #FFF;
+    padding: 1%;
+}
+
+.open-close-hdr-white{
+    color: #3399ff;
+    padding: 1%;
+}
